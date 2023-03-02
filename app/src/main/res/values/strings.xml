@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Movie Catalog</string>
+    <string name="title_home">Фильмы</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_favorite">Избранное</string>
+    <string name="title_moviedetail">Фильм</string>
+    <string name="title_login">Авторизация</string>
+    <string name="title_register">Регистрация</string>
+    <string name="title_event">Мероприятия</string>
+    <string name="title_eventdetail">Мероприятие</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "105642873308",
+    "project_id": "musicandfilm-5497b",
+    "storage_bucket": "musicandfilm-5497b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105642873308:android:bc467bf01e2fecb35c7f19",
+        "android_client_info": {
+          "package_name": "com.example.musicandfilm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105642873308-bp41hnqtjhc4b0fhrh7323o7ujticsoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmfJyuR0KeyauwiZez5mdlv6TARBDpBus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105642873308-bp41hnqtjhc4b0fhrh7323o7ujticsoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
