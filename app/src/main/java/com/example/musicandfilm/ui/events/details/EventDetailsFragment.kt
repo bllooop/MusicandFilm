@@ -4,20 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.musicandfilm.databinding.FragmentEventDetailsBinding
-import com.example.musicandfilm.databinding.FragmentEventsBinding
 import com.example.musicandfilm.models.Event
-import com.example.musicandfilm.ui.movie.details.DetailsViewModel
-import java.util.ArrayList
+import com.example.musicandfilm.models.EventDetail
+import com.example.musicandfilm.services.EventApiInterface
+import com.example.musicandfilm.services.EventApiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EventDetailsFragment : Fragment() {
     private var _binding: FragmentEventDetailsBinding? = null
     private val binding get() = _binding!!
-    val arrayList = ArrayList<Event>()
-    val displayList = ArrayList<Event>()
+    private val sdf = SimpleDateFormat("dd/MM/yyyy")
+    private val IMAGE_BASE = "https://kudago.com/media/images/event/"
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -41,9 +49,38 @@ class EventDetailsFragment : Fragment() {
         val args = this.arguments
         val input = args?.getString("id")
         val id = input!!.toInt()
-        val event_title: TextView = binding.eventTitle
-        event_title.text = id.toString()
-
+        val viewModel = ViewModelProvider(this).get(EventDetailsViewModel::class.java)
+        viewModel.getSingleEventDetail(id).observe(viewLifecycleOwner, Observer {
+           bindEvent(it)
+        })
 
     }
+    fun bindEvent(events: EventDetail){
+        val event_title: TextView = binding.eventTitle
+        val event_age: TextView = binding.eventAge
+        val event_location: TextView = binding.location
+        val event_date: TextView = binding.eventDate
+        val event_poster: ImageView = binding.eventImage
+        val event_description: TextView = binding.bodyText
+        val datestr = events.dates.last().toString().removeRange(0,12)
+        if (datestr[0].toString() == "-") {
+            val date = datestr.removeRange(0,18)
+            val newdate = date.substringBefore(")")
+            val netDate = Date(newdate.toLong() * 1000)
+            event_date.text = sdf.format(netDate)
+        } else {
+            val date = datestr.removeRange(0,16)
+            val newdate = date.substringBefore(")")
+            val netDate = Date(newdate.toLong() * 1000)
+            event_date.text = sdf.format(netDate)
+        }
+        val image_url = events.images.toString().removeRange(0,46)
+        val imageev = image_url.subSequence(0, image_url.indexOf(','))
+        event_title.text = events.title
+        event_age.text = events.ageRestriction
+        //event_location.text = "events.location.toString()"
+        event_description.text = events.bodyText.replace("\\<.*?\\>".toRegex(), "")
+        Glide.with(this).load(IMAGE_BASE + imageev).into(event_poster)
+    }
+
 }
