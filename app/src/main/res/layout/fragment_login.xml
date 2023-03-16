@@ -67,20 +67,7 @@
         app:layout_constraintTop_toBottomOf="@id/emails"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <Button
-        android:id="@+id/log_button"
-        android:layout_width="277dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:background="#F1DB1B"
-        android:backgroundTint="#F1DB1B"
-        android:text="Авторизоваться"
-        android:textAlignment="center"
-        android:textColor="@color/pale_black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwords" />
+
 
     <TextView
         android:id="@+id/regText"
@@ -94,5 +81,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/log_button"
+        android:layout_width="277dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#FFC800"
+        android:text="Авторизоваться"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwords" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

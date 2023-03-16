@@ -19,8 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="34dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView2"
@@ -32,6 +31,16 @@
                 android:textSize="34sp" />
 
             <TextView
+                android:id="@+id/movie_field_name"
+                android:text="Фильмы"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="5dp"
+                android:textSize="24sp" />
+
+            <TextView
                 android:id="@+id/empty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,12 +50,56 @@
                 android:text="Список пуст"
                 android:textColor="@color/grey"
                 android:textSize="20sp" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_movies_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="206dp"
                 android:layout_marginTop="16dp" />
+
+
+            <TextView
+                android:id="@+id/event_field_name"
+                android:text="Мероприятия"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/empty1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:text="Список пуст"
+                android:textColor="@color/grey"
+                android:textSize="20sp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_events_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/news_field_name"
+                android:text="Новости"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/empty2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:text="Список пуст"
+                android:textColor="@color/grey"
+                android:textSize="20sp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_news_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

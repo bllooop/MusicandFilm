@@ -2,8 +2,8 @@ package com.example.musicandfilm.ui.movie
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.musicandfilm.models.Movie
-import com.example.musicandfilm.models.MovieResponse
+import com.example.musicandfilm.models.movies.Movie
+import com.example.musicandfilm.models.movies.MovieResponse
 import com.example.musicandfilm.services.MovieApiInterface
 import com.example.musicandfilm.services.MovieApiService
 import retrofit2.Call

@@ -3,7 +3,7 @@ package com.example.musicandfilm.ui.movie.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.musicandfilm.models.MovieDetails
+import com.example.musicandfilm.models.movies.MovieDetails
 import com.example.musicandfilm.services.MovieApiInterface
 import com.example.musicandfilm.services.MovieApiService
 import retrofit2.Call

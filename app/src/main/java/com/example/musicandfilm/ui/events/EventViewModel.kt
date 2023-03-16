@@ -1,11 +1,9 @@
 package com.example.musicandfilm.ui.events
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.musicandfilm.models.Event
-import com.example.musicandfilm.models.EventResponse
-import com.example.musicandfilm.models.Images
+import com.example.musicandfilm.models.events.Event
+import com.example.musicandfilm.models.events.EventResponse
 import com.example.musicandfilm.services.EventApiInterface
 import com.example.musicandfilm.services.EventApiService
 import retrofit2.Call

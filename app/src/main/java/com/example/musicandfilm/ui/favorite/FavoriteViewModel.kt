@@ -2,7 +2,7 @@ package com.example.musicandfilm.ui.favorite
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.musicandfilm.models.FavoriteMovie
+import com.example.musicandfilm.models.movies.FavoriteMovie
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

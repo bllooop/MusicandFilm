@@ -11,13 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.musicandfilm.databinding.FragmentEventDetailsBinding
-import com.example.musicandfilm.models.Event
-import com.example.musicandfilm.models.EventDetail
-import com.example.musicandfilm.services.EventApiInterface
-import com.example.musicandfilm.services.EventApiService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.musicandfilm.models.events.EventDetail
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -78,7 +72,8 @@ class EventDetailsFragment : Fragment() {
         val imageev = image_url.subSequence(0, image_url.indexOf(','))
         event_title.text = events.title
         event_age.text = events.ageRestriction
-        //event_location.text = "events.location.toString()"
+        val eventurl = events.location.toString().removeRange(0,16)
+        event_location.text =  eventurl.subSequence(0, eventurl.indexOf(','))
         event_description.text = events.bodyText.replace("\\<.*?\\>".toRegex(), "")
         Glide.with(this).load(IMAGE_BASE + imageev).into(event_poster)
     }

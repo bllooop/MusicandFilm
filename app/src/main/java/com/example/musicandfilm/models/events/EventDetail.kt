@@ -1,9 +1,7 @@
-package com.example.musicandfilm.models
+package com.example.musicandfilm.models.events
 
-import android.location.Location
-import android.os.Parcelable
+import com.example.musicandfilm.models.events.Dates
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
 data class EventDetail (

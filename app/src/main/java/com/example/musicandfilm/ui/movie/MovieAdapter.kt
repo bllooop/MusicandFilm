@@ -9,13 +9,11 @@ import android.widget.*
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.musicandfilm.models.FavoriteMovie
+import com.example.musicandfilm.models.movies.FavoriteMovie
 import com.example.musicandfilm.R
-import com.example.musicandfilm.models.Movie
+import com.example.musicandfilm.models.movies.Movie
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 
 class MovieAdapter(

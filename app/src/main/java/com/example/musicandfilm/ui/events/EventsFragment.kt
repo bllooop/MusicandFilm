@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicandfilm.R
 import com.example.musicandfilm.databinding.FragmentEventsBinding
-import com.example.musicandfilm.models.Event
+import com.example.musicandfilm.models.events.Event
 import java.util.*
 
 class EventsFragment : Fragment() {

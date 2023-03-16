@@ -3,7 +3,6 @@ package com.example.musicandfilm.ui.movie
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,9 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicandfilm.R
 import com.example.musicandfilm.databinding.FragmentMainBinding
-import com.example.musicandfilm.models.Movie
-import com.example.musicandfilm.ui.movie.MovieAdapter
-import com.example.musicandfilm.ui.movie.MovieViewModel
+import com.example.musicandfilm.models.movies.Movie
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -1,7 +1,7 @@
 package com.example.musicandfilm.services
 
-import com.example.musicandfilm.models.MovieResponse
-import com.example.musicandfilm.models.MovieDetails
+import com.example.musicandfilm.models.movies.MovieResponse
+import com.example.musicandfilm.models.movies.MovieDetails
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.musicandfilm.R
 import com.example.musicandfilm.databinding.FragmentMainBinding
-import com.example.musicandfilm.models.MovieDetails
+import com.example.musicandfilm.models.movies.MovieDetails
 
 
 class DetailsFragment : Fragment() {

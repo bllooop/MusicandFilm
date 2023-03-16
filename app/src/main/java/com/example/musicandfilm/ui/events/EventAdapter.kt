@@ -1,7 +1,6 @@
 package com.example.musicandfilm.ui.events
 
 import android.content.Context
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +13,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.musicandfilm.R
-import com.example.musicandfilm.models.Event
-import com.example.musicandfilm.models.Images
+import com.example.musicandfilm.models.events.Event
+import com.example.musicandfilm.models.events.FavoriteEvent
+import com.example.musicandfilm.models.movies.FavoriteMovie
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,32 +28,41 @@ class EventAdapter(
         private val IMAGE_BASE = "https://kudago.com/media/images/event/"
         private val sdf = SimpleDateFormat("dd/MM/yyyy")
         private val minus = "-"
+        val database = FirebaseDatabase.getInstance("https://musicandfilm-5497b-default-rtdb.europe-west1.firebasedatabase.app")
+        var user = FirebaseAuth.getInstance().currentUser
+        var userid = user!!.uid
         val favorite: ImageButton = view.findViewById(R.id.fav)
         val bundle = Bundle()
+        val favEvent = database.getReference("Events")
+
         fun bindEvent(event: Event, context: Context) {
             val event_title = itemView.findViewById<TextView>(R.id.event_title)
             val event_poster = itemView.findViewById<ImageView>(R.id.event_image)
             val event_date = itemView.findViewById<TextView>(R.id.event_date)
+            var date = ""
             val image_url = event.event_images.toString().removeRange(0,46)
-            val imageev = image_url.subSequence(0, image_url.indexOf(','))
+            val imageev = image_url.subSequence(0, image_url.indexOf(',')).toString()
             event_title.text = event.title.capitalize()
             val datestr = event.dates.last().toString().removeRange(0,12)
             if (datestr[0].toString() == minus) {
-                val date = datestr.removeRange(0,18)
+                date = datestr.removeRange(0,18)
                 val newdate = date.substringBefore(")")
                 val netDate = Date(newdate.toLong() * 1000)
-                event_date.text = "До " + sdf.format(netDate)
+                date = "До " + sdf.format(netDate)
+                event_date.text = date
             } else {
-                val date = datestr.removeRange(0,16)
+                date = datestr.removeRange(0,16)
                 val newdate = date.substringBefore(")")
                 val netDate = Date(newdate.toLong() * 1000)
-                event_date.text = "До " + sdf.format(netDate)
+                date = "До " + sdf.format(netDate)
+                event_date.text = date
             }
-            val netDate = Date("1681160400".toLong() * 1000)
             Glide.with(itemView).load(IMAGE_BASE + imageev).into(event_poster)
             bundle.putString("id", event.id)
             favorite.setOnClickListener {
-                Toast.makeText(context,sdf.format(netDate), Toast.LENGTH_SHORT).show()
+                val mEvent = FavoriteEvent(userid,event.id,event.title,imageev,date)
+                favEvent.child(event.id).setValue(mEvent)
+                Toast.makeText(context,"Мероприятие добавлено в избранное", Toast.LENGTH_SHORT).show()
             }
             itemView.setOnClickListener {
                 itemView.findNavController()
