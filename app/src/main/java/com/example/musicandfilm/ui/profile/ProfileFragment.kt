@@ -1,4 +1,4 @@
-package com.example.musicandfilm.profile
+package com.example.musicandfilm.ui.profile
 
 import android.app.ProgressDialog
 import android.content.Intent

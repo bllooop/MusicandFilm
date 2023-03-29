@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pale_black"
+    android:paddingBottom="56dp"
     tools:context="com.example.musicandfilm.ui.events.details.EventDetailsFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -19,17 +20,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-    <ImageView
-        android:id="@+id/event_image"
-        android:layout_width="391dp"
-        android:layout_height="278dp"
-        android:scaleType="centerCrop"
-        android:layout_margin="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/event_image"
+                android:layout_width="394dp"
+                android:layout_height="242dp"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
 
 
@@ -137,6 +139,47 @@
                         android:textColor="#FFEB3B"
                         android:textSize="16sp" />
                 </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="383dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="16sp"
+                        android:text="Комментарии:"
+                        android:textColor="#FFEB3B" />
+
+                    <EditText
+                        android:id="@+id/comment_text"
+                        android:layout_width="391dp"
+                        android:layout_height="76dp"
+                        android:layout_margin="8dp"
+                        android:background="#FFFFFF"
+                        android:backgroundTint="#FFFFFF"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:scaleType="centerCrop"
+                        android:text="Name"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/send"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFC800"
+                        app:layout_constraintTop_toTopOf="@id/comment_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:text="Опубликовать"
+                        android:textColor="#000000" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_comments_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 

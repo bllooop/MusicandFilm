@@ -1,70 +1,69 @@
-package com.example.musicandfilm.ui.events
+package com.example.musicandfilm.ui.news
 
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.musicandfilm.R
-import com.example.musicandfilm.databinding.FragmentEventsBinding
-import com.example.musicandfilm.models.events.Event
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
+import com.example.musicandfilm.databinding.FragmentNewsBinding
+import com.example.musicandfilm.models.news.Items
+import com.example.musicandfilm.models.news.Response
 import java.util.*
 
-class EventsFragment : Fragment() {
-    private var _binding: FragmentEventsBinding? = null
+class NewsFragment() : Fragment() {
+    private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
-    val arrayList = ArrayList<Event>()
-    val displayList = ArrayList<Event>()
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    val arrayList = ArrayList<Response>()
+    val displayList = ArrayList<Response>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEventsBinding.inflate(inflater, container, false)
+        _binding = FragmentNewsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         setHasOptionsMenu(true)
         //return inflater.inflate(R.layout.fragment_main, container, false)
         return root
     }
-
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-        putNewsRV()
+        putNewsInRv()
         refreshApp()
     }
 
-    private fun putNewsRV(){
-        val viewModel = ViewModelProvider(this).get(EventViewModel::class.java)
-        val rv_events_list: RecyclerView = binding.rvEventsList
+    private fun putNewsInRv(){
+        val viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+        val rv_news_list: RecyclerView = binding.rvNewsList
+        val cringe: TextView = binding.cringetest
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            rv_events_list.layoutManager = LinearLayoutManager(activity)
-            rv_events_list.setHasFixedSize(true)
-            //  getMovieData { movies: List<Movie> ->
+            cringe.text = "кайф)"
+            rv_news_list.layoutManager = LinearLayoutManager(activity)
+            rv_news_list.setHasFixedSize(true)
             arrayList.clear()
             arrayList.addAll(it)
             displayList.clear()
             displayList.addAll(arrayList)
-            var adapter = EventAdapter(displayList)
-            rv_events_list.adapter = adapter
+            if (displayList.isEmpty()) {
+                cringe.text = "кайф)"
+            }
+            else {
+                cringe.text = "а не норм так то"
+            }
+          //  var adapter = NewsAdapter(displayList)
+           // rv_news_list.adapter = adapter
         })
-        viewModel.getEventData()
+        viewModel.getNewsData()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+   /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
-        val rv_events_list: RecyclerView = binding.rvEventsList
+        val rv_news_list: RecyclerView = binding.rvNewsList
         val item = menu!!.findItem(R.id.search_action)
         if (item!=null) {
             val searchView = item?.actionView as SearchView
@@ -83,23 +82,23 @@ class EventsFragment : Fragment() {
                                 //  Log.d("MyLog", "test " + it.toString())
                             }
                         }
-                        rv_events_list.adapter!!.notifyDataSetChanged()
+                        rv_news_list.adapter!!.notifyDataSetChanged()
                     } else {
                         displayList.clear()
                         displayList.addAll(arrayList)
-                       // rv_events_list.adapter!!.notifyDataSetChanged()
+                        // rv_events_list.adapter!!.notifyDataSetChanged()
                     }
                     return true
                 }
             })
         }
         return super.onCreateOptionsMenu(menu, inflater)
-    }
-    private fun refreshApp(){
-        val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
-        swipe_to_refresh.setOnRefreshListener {
-            putNewsRV()
-            swipe_to_refresh.isRefreshing = false
-        }
-    }
+    }*/
+   private fun refreshApp(){
+       val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
+       swipe_to_refresh.setOnRefreshListener {
+           putNewsInRv()
+           swipe_to_refresh.isRefreshing = false
+       }
+   }
 }

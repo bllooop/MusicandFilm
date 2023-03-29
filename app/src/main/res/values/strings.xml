@@ -7,7 +7,10 @@
     <string name="title_login">Авторизация</string>
     <string name="title_register">Регистрация</string>
     <string name="title_event">Мероприятия</string>
+    <string name="title_news">Новости</string>
     <string name="title_eventdetail">Мероприятие</string>
+    <string name="title_newsdetail">Новость</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

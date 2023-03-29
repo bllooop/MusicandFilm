@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.musicandfilm.profile.ProfileFragment"
+        android:name="com.example.musicandfilm.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
@@ -55,5 +55,20 @@
         android:name="com.example.musicandfilm.ui.events.details.EventDetailsFragment"
         android:label="@string/title_eventdetail"
         tools:layout="@layout/fragment_event_details" >
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="com.example.musicandfilm.ui.news.NewsFragment"
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_news_details"
+            app:destination="@id/navigation_details_news" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_details_news"
+        android:name="com.example.musicandfilm.ui.news.details.NewsDetailsFragment"
+        android:label="@string/title_newsdetail"
+        tools:layout="@layout/fragment_news_details" >
     </fragment>
 </navigation>

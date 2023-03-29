@@ -7,14 +7,16 @@
     android:background="@color/pale_black"
     android:id="@+id/rec"
     android:paddingBottom="56dp"
-    tools:context="com.example.musicandfilm.ui.events.EventsFragment">
+    tools:context="com.example.musicandfilm.ui.news.NewsFragment">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id ="@+id/swipe_to_refresh"
         app:layout_constraintTop_toTopOf = "parent"
         app:layout_constraintEnd_toEndOf = "parent">
-    <androidx.core.widget.NestedScrollView
+
+
+        <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -29,17 +31,25 @@
             android:layout_marginTop="6dp">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="Мероприятия"
+                android:text="Новости"
                 android:textColor="@color/white"
                 android:textSize="34sp" />
 
+            <TextView
+                android:id="@+id/cringetest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Лоооол"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_events_list"
+                android:id="@+id/rv_news_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp" />

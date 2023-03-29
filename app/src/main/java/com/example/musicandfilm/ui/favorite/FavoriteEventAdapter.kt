@@ -31,7 +31,7 @@ class FavoriteEventAdapter(private val events : List<FavoriteEvent>):
             val event_image = itemView.findViewById<ImageView>(R.id.event_poster)
             event_title.text = favoriteEvent.title.capitalize()
             event_date.text = favoriteEvent.date
-            Glide.with(itemView).load(IMAGE_BASE + "2a/c1/2ac193659125aaf91bc7c3b1a5261fd3.jpeg" ).into(event_image)
+            Glide.with(itemView).load(IMAGE_BASE + favoriteEvent.image ).into(event_image)
             bundle.putString("id", favoriteEvent.id)
             itemView.setOnClickListener {
                 itemView.findNavController()

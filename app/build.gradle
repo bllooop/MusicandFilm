@@ -111,7 +111,10 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
-    }
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
+}
 
 
 apply plugin: 'com.google.gms.google-services'

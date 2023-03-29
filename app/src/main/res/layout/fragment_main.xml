@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/pale_black"
     android:id="@+id/rec"
+    android:paddingBottom="56dp"
     tools:context="com.example.musicandfilm.ui.movie.MovieCatalogFragment">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id ="@+id/swipe_to_refresh"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintEnd_toEndOf = "parent">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,4 +43,5 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

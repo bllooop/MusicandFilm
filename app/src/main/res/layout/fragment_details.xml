@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pale_black"
+    android:paddingBottom="56dp"
     tools:context="com.example.musicandfilm.ui.movie.details.DetailsFragment">
     <ImageView
         android:id="@+id/movie_poster"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,7 +59,7 @@ class FavoriteFragment : Fragment() {
         rv_movies_list.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
         rv_movies_list.setHasFixedSize(true)
         rv_events_list.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
-        rv_movies_list.setHasFixedSize(true)
+        rv_events_list.setHasFixedSize(true)
         val adapter = FavoriteAdapter(movieArrayList)
         rv_movies_list.adapter = adapter
         val adapter_ev = FavoriteEventAdapter(eventArrayList)

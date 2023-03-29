@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.musicandfilm.R
 import com.example.musicandfilm.databinding.FragmentMainBinding
 import com.example.musicandfilm.models.movies.Movie
@@ -37,22 +38,26 @@ class MovieCatalogFragment() : Fragment() {
 
    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
        super.onViewCreated(itemView, savedInstanceState)
-       val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-       val rv_movies_list: RecyclerView = binding.rvMoviesList
-       viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
-           rv_movies_list.layoutManager = LinearLayoutManager(activity)
-           rv_movies_list.setHasFixedSize(true)
-           //  getMovieData { movies: List<Movie> ->
-           arrayList.clear()
-           arrayList.addAll(it)
-           displayList.clear()
-           displayList.addAll(arrayList)
-           var adapter = MovieAdapter(displayList)
-           rv_movies_list.adapter = adapter
-       })
-       viewModel.getMovieData()
+        putMoviesInRv()
+       refreshApp()
    }
 
+    private fun putMoviesInRv(){
+        val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+        val rv_movies_list: RecyclerView = binding.rvMoviesList
+        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
+            rv_movies_list.layoutManager = LinearLayoutManager(activity)
+            rv_movies_list.setHasFixedSize(true)
+            //  getMovieData { movies: List<Movie> ->
+            arrayList.clear()
+            arrayList.addAll(it)
+            displayList.clear()
+            displayList.addAll(arrayList)
+            var adapter = MovieAdapter(displayList)
+            rv_movies_list.adapter = adapter
+        })
+        viewModel.getMovieData()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -90,5 +95,12 @@ class MovieCatalogFragment() : Fragment() {
                 })
         }
         return super.onCreateOptionsMenu(menu, inflater)
+    }
+    private fun refreshApp(){
+        val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
+        swipe_to_refresh.setOnRefreshListener {
+            putMoviesInRv()
+            swipe_to_refresh.isRefreshing = false
+        }
     }
 }
