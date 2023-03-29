@@ -94,7 +94,7 @@ class EventDetailsFragment : Fragment() {
         rv_comments_list.setHasFixedSize(true)
         val adapter = CommentAdapter(commentsArrayList)
         rv_comments_list.adapter = adapter
-        comments.addValueEventListener(object :
+        comments.orderByChild("id").equalTo(id.toString()).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
