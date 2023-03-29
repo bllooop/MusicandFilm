@@ -79,7 +79,7 @@ class EventDetailsFragment : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-        val mComment = Comments(userid,comment, id.toString(),email)
+        val mComment = Comments(userid,id.toString(),email, comment)
         comments.child(id.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
@@ -93,7 +93,8 @@ class EventDetailsFragment : Fragment() {
         rv_comments_list.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL,false)
         rv_comments_list.setHasFixedSize(true)
         val adapter = CommentAdapter(commentsArrayList)
-        comments.equalTo(userid).addValueEventListener(object :
+        rv_comments_list.adapter = adapter
+        comments.addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
