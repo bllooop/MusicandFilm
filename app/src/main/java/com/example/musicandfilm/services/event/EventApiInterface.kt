@@ -1,4 +1,4 @@
-package com.example.musicandfilm.services
+package com.example.musicandfilm.services.event
 
 import com.example.musicandfilm.models.events.EventDetail
 import com.example.musicandfilm.models.events.EventResponse

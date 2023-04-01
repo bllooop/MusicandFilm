@@ -7,21 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.musicandfilm.R
 import com.example.musicandfilm.databinding.FragmentEventDetailsBinding
-import com.example.musicandfilm.models.Comments
 import com.example.musicandfilm.models.events.EventDetail
-import com.example.musicandfilm.models.events.FavoriteEvent
-import com.example.musicandfilm.models.movies.FavoriteMovie
-import com.example.musicandfilm.ui.favorite.FavoriteAdapter
-import com.example.musicandfilm.ui.favorite.FavoriteEventAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -37,7 +30,7 @@ class EventDetailsFragment : Fragment() {
     private val IMAGE_BASE = "https://kudago.com/media/images/event/"
     private var comment = ""
     private lateinit var firebaseAuth : FirebaseAuth
-    private lateinit var commentsArrayList:ArrayList<Comments>
+    private lateinit var commentsArrayList:ArrayList<com.example.musicandfilm.models.Comments>
     val database = FirebaseDatabase.getInstance("https://musicandfilm-5497b-default-rtdb.europe-west1.firebasedatabase.app")
     val comments = database.getReference("Comments/Events")
 
@@ -79,7 +72,7 @@ class EventDetailsFragment : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-        val mComment = Comments(userid,id.toString(),email, comment)
+        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, comment)
         comments.child(id.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
@@ -89,7 +82,7 @@ class EventDetailsFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
         var userid = firebaseUser!!.uid
-        commentsArrayList = arrayListOf<Comments>()
+        commentsArrayList = arrayListOf<com.example.musicandfilm.models.Comments>()
         rv_comments_list.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL,false)
         rv_comments_list.setHasFixedSize(true)
         val adapter = CommentAdapter(commentsArrayList)
@@ -99,7 +92,7 @@ class EventDetailsFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (commentsSnapshot in snapshot.children) {
-                        val mComment = commentsSnapshot.getValue(Comments::class.java)
+                        val mComment = commentsSnapshot.getValue(com.example.musicandfilm.models.Comments::class.java)
                         commentsArrayList.add(mComment!!)
                     }
                     adapter.notifyDataSetChanged()

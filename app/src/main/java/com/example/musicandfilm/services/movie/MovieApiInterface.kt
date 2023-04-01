@@ -1,4 +1,4 @@
-package com.example.musicandfilm.services
+package com.example.musicandfilm.services.movie
 
 import com.example.musicandfilm.models.movies.MovieResponse
 import com.example.musicandfilm.models.movies.MovieDetails

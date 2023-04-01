@@ -1,4 +1,4 @@
-package com.example.musicandfilm.services
+package com.example.musicandfilm.services.movie
 
 //import com.example.moviecatalog.localdata.FavoriteMovieDatabase
 import okhttp3.OkHttpClient

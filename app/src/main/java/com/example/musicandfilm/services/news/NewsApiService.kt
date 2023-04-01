@@ -1,4 +1,4 @@
-package com.example.musicandfilm.services
+package com.example.musicandfilm.services.news
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

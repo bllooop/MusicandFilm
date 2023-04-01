@@ -1,4 +1,4 @@
-package com.example.musicandfilm.services
+package com.example.musicandfilm.services.event
 
 //import com.example.moviecatalog.localdata.FavoriteMovieDatabase
 import okhttp3.OkHttpClient
@@ -10,7 +10,6 @@ class EventApiService {
 
     companion object{
         private const val BASE_URL = "https://kudago.com/public-api/v1.4/"
-       // private const val BASE_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films"
         private var retrofit : Retrofit? = null
         val clientBuilder = OkHttpClient.Builder()
         val loggingInterceptor = HttpLoggingInterceptor()

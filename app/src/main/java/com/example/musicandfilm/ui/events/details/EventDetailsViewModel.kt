@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.musicandfilm.models.events.EventDetail
-import com.example.musicandfilm.services.EventApiInterface
-import com.example.musicandfilm.services.EventApiService
+import com.example.musicandfilm.services.event.EventApiInterface
+import com.example.musicandfilm.services.event.EventApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
