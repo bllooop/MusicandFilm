@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicandfilm.R
+import com.example.musicandfilm.models.news.FavoriteNews
 import com.example.musicandfilm.models.news.Items
 import com.example.musicandfilm.models.news.Response
 import com.google.firebase.auth.FirebaseAuth
@@ -30,28 +31,30 @@ class NewsAdapter (  private val news: List<Items>
         var userid = user!!.uid
         val favorite: ImageButton = view.findViewById(R.id.fav)
         val bundle = Bundle()
-        val favEvent = database.getReference("News")
+        val favNews = database.getReference("News")
 
-        fun bindEvent(items: Items, context: Context) {
+        fun bindNews(items: Items, context: Context) {
             val news_title = itemView.findViewById<TextView>(R.id.news_title)
             val news_image = itemView.findViewById<ImageView>(R.id.news_image)
             val news_date = itemView.findViewById<TextView>(R.id.news_date)
             var date = ""
             //val image_url = news..toString().removeRange(0,46)
            // val imageev = image_url.subSequence(0, image_url.indexOf(',')).toString()
+            val image_url = ""
          //   news_title.text = news.title.capitalize()
            // news_title.text = news.date.toString()
-            news_title.text = items.date.toString()
-       //     val newdate = news.date
-             //   val netDate = Date(newdate.toLong() * 1000)
-             //   date = "До " + sdf.format(netDate)
-                news_date.text = "eegeg"
+            news_title.text = items.text!!.subSequence(0, 15).toString()
+                  val newdate = items.date
+                    val netDate = Date(newdate!!.toLong() * 1000)
+                     date = sdf.format(netDate).toString()
+            news_date.text =  sdf.format(netDate).toString()
         //    Glide.with(itemView).load(IMAGE_BASE + imageev).into(news_image)
-           // bundle.putString("id", event.id)
+            val postid = items.ownerId.toString() + "_" + items.id.toString()
+             bundle.putString("id", postid)
             favorite.setOnClickListener {
-              //  val mEvent = FavoriteEvent(userid,event.id,event.title,imageev,date)
-               // favEvent.child(event.id).setValue(mEvent)
-                Toast.makeText(context,"Мероприятие добавлено в избранное", Toast.LENGTH_SHORT).show()
+                  val mNews = FavoriteNews(userid,date,postid, items.text!!,image_url )
+                 favNews.child(postid).setValue(mNews)
+                Toast.makeText(context,"Новость добавлена в избранное", Toast.LENGTH_SHORT).show()
             }
             itemView.setOnClickListener {
                 itemView.findNavController()
@@ -66,6 +69,6 @@ class NewsAdapter (  private val news: List<Items>
     override fun getItemCount(): Int = news.size
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         var context: Context =holder.itemView.context
-        holder.bindEvent(news.get(position),context)
+        holder.bindNews(news.get(position),context)
     }
 }

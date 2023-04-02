@@ -25,5 +25,8 @@ class NewsDetailsFragment () : Fragment() {
     }
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        val args = this.arguments
+        val input = args?.getString("id")
+        val id = input!!.toInt()
     }
 }
