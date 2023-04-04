@@ -38,7 +38,6 @@ class NewsFragment() : Fragment() {
     }
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-        val cringe: TextView = binding.cringetest
 
         putNewsInRv ()
         refreshApp()
@@ -49,7 +48,6 @@ class NewsFragment() : Fragment() {
 private fun putNewsInRv(){
         val viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         val rv_news_list: RecyclerView = binding.rvNewsList
-        val cringe: TextView = binding.cringetest
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             rv_news_list.layoutManager = LinearLayoutManager(activity)
             rv_news_list.setHasFixedSize(true)

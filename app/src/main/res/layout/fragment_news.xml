@@ -40,14 +40,6 @@
                 android:textColor="@color/white"
                 android:textSize="34sp" />
 
-            <TextView
-                android:id="@+id/cringetest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Лоооол"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_news_list"
                 android:layout_width="match_parent"

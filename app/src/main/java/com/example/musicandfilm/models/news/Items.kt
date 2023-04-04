@@ -1,6 +1,7 @@
 package com.example.musicandfilm.models.news
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.RawValue
 
 
 data class Items (
