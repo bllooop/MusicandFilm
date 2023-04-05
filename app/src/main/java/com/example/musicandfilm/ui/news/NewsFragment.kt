@@ -2,12 +2,14 @@ package com.example.musicandfilm.ui.news
 
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.musicandfilm.R
 import com.example.musicandfilm.databinding.FragmentNewsBinding
 import com.example.musicandfilm.models.news.Items
 import com.example.musicandfilm.models.news.NewsResponse
@@ -61,7 +63,7 @@ private fun putNewsInRv(){
         viewModel.getNewsData()
     }
 
-   /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
         val rv_news_list: RecyclerView = binding.rvNewsList
         val item = menu!!.findItem(R.id.search_action)
@@ -77,7 +79,7 @@ private fun putNewsInRv(){
                         displayList.clear()
                         val search = newText.toLowerCase(Locale.getDefault())
                         arrayList.forEach {
-                            if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
+                            if (it.text!!.toLowerCase(Locale.getDefault()).contains(search)) {
                                 displayList.add(it)
                                 //  Log.d("MyLog", "test " + it.toString())
                             }
@@ -86,14 +88,14 @@ private fun putNewsInRv(){
                     } else {
                         displayList.clear()
                         displayList.addAll(arrayList)
-                        // rv_events_list.adapter!!.notifyDataSetChanged()
+                     //   rv_news_list.adapter!!.notifyDataSetChanged()
                     }
                     return true
                 }
             })
         }
         return super.onCreateOptionsMenu(menu, inflater)
-    }*/
+    }
    private fun refreshApp(){
        val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
        swipe_to_refresh.setOnRefreshListener {

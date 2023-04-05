@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.musicandfilm.databinding.FragmentEventDetailsBinding
 import com.example.musicandfilm.models.events.EventDetail
@@ -64,6 +65,8 @@ class EventDetailsFragment : Fragment() {
             addComment(id)
         }
         viewComments(id)
+        refreshApp(id)
+
     }
 
     private fun addComment(id: Int){
@@ -101,7 +104,6 @@ class EventDetailsFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
-
     }
     fun bindEvent(events: EventDetail){
         val event_title: TextView = binding.eventTitle
@@ -132,4 +134,11 @@ class EventDetailsFragment : Fragment() {
         Glide.with(this).load(IMAGE_BASE + imageev).into(event_poster)
     }
 
+    private fun refreshApp(id: Int){
+        val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
+        swipe_to_refresh.setOnRefreshListener {
+            viewComments(id)
+            swipe_to_refresh.isRefreshing = false
+        }
+    }
 }

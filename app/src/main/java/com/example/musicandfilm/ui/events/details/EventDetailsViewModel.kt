@@ -29,4 +29,5 @@ class EventDetailsViewModel : ViewModel() {
 
     fun getLiveDataObserver(): MutableLiveData<EventDetail> {
         return event_detail
-    }}
+    }
+}

@@ -66,9 +66,8 @@ class NewsAdapter (  private val news: List<Items>
             val postid = items.ownerId.toString() + "_" + items.id.toString()
              bundle.putString("id", postid)
             favorite.setOnClickListener {
-                //  val mNews = FavoriteNews(userid,date,postid, items.text!!,image_url )
-               //  favNews.child(postid).setValue(mNews)
-                Toast.makeText(context,image_link.toString(), Toast.LENGTH_SHORT).show()
+              val mNews = FavoriteNews(userid,date,postid, items.text!!,image_link )
+               favNews.child(postid).setValue(mNews)
             }
             itemView.setOnClickListener {
                itemView.findNavController()

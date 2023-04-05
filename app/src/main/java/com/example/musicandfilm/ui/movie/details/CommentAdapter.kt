@@ -1,4 +1,4 @@
-package com.example.musicandfilm.ui.events.details
+package com.example.musicandfilm.ui.movie.details
 
 import android.content.Context
 import android.os.Bundle
