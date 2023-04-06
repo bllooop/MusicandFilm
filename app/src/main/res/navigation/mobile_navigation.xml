@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_navigation_favorite_to_navigation_event_details"
             app:destination="@id/navigation_details_event" />
+        <action
+            android:id="@+id/action_navigation_favorite_to_navigation_news_details"
+            app:destination="@id/navigation_details_news" />
     </fragment>
     <fragment
         android:id="@+id/navigation_details"

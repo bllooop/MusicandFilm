@@ -1,19 +1,20 @@
 package com.example.musicandfilm.room
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 
 class RecentItemRepository(private val recentItemDao: RecentItemDao) {
 
-    val allRecentItems: Flow<RecentItem> = recentItemDao.allRecentItems()
-
+    val allRecentItems: LiveData<List<RecentHistory>> = recentItemDao.allRecentItems()
+//get() = recentItemDao.allRecentItems()
     @WorkerThread
-    suspend fun insertRecentItem(recentItem: RecentItem){
-        recentItemDao.insertRecentItem(recentItem)
+    suspend fun insertRecentItem(recentHistory: RecentHistory){
+        recentItemDao.insertRecentItem(recentHistory)
     }
 
     @WorkerThread
-    suspend fun updateRecentItem(recentItem: RecentItem){
-        recentItemDao.updateRecentItem(recentItem)
+    suspend fun updateRecentItem(recentHistory: RecentHistory){
+        recentItemDao.updateRecentItem(recentHistory)
     }
 }

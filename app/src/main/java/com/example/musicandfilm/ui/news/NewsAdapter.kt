@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +18,8 @@ import com.example.musicandfilm.models.news.Attachments
 import com.example.musicandfilm.models.news.FavoriteNews
 import com.example.musicandfilm.models.news.Items
 import com.example.musicandfilm.models.news.Response
+import com.example.musicandfilm.ui.InsertingRoomViewModel
+import com.example.musicandfilm.ui.profile.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
@@ -35,6 +38,7 @@ class NewsAdapter (  private val news: List<Items>
         val bundle = Bundle()
         val favNews = database.getReference("News")
         val attachment = ArrayList<Attachments>()
+
         fun bindNews(items: Items, context: Context) {
             val news_title = itemView.findViewById<TextView>(R.id.news_title)
             val news_image = itemView.findViewById<ImageView>(R.id.news_image)
@@ -68,6 +72,8 @@ class NewsAdapter (  private val news: List<Items>
             favorite.setOnClickListener {
               val mNews = FavoriteNews(userid,date,postid, items.text!!,image_link )
                favNews.child(postid).setValue(mNews)
+                Toast.makeText(context,"Новость добавлена в избранное", Toast.LENGTH_SHORT).show()
+
             }
             itemView.setOnClickListener {
                itemView.findNavController()

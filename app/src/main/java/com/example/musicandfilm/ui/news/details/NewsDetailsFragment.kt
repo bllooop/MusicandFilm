@@ -19,8 +19,11 @@ import com.example.musicandfilm.models.Comments
 import com.example.musicandfilm.models.events.EventDetail
 import com.example.musicandfilm.models.news.Attachments
 import com.example.musicandfilm.models.news.Items
+import com.example.musicandfilm.room.RecentHistory
+import com.example.musicandfilm.ui.InsertingRoomViewModel
 import com.example.musicandfilm.ui.events.details.CommentAdapter
 import com.example.musicandfilm.ui.events.details.EventDetailsViewModel
+import com.example.musicandfilm.ui.profile.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -67,6 +70,9 @@ class NewsDetailsFragment () : Fragment() {
         viewComments(id)
         refreshApp(id)
     }
+
+
+
     private fun addComment(id: String){
         var user = FirebaseAuth.getInstance().currentUser
         firebaseAuth = FirebaseAuth.getInstance()
@@ -115,7 +121,6 @@ class NewsDetailsFragment () : Fragment() {
         val news_date: TextView = binding.newsDate
         val news_image: ImageView = binding.newsImage
         val news_text: TextView = binding.newsText
-        var date = ""
         var image_link = ""
         attachment.addAll(items.attachments)
         val attachments: Attachments = attachment.get(0)
@@ -136,7 +141,11 @@ class NewsDetailsFragment () : Fragment() {
         news_text.text = items.text
         val newdate = items.date
         val netDate = Date(newdate!!.toLong() * 1000)
+        val date = sdf.format(netDate).toString()
         news_date.text =  sdf.format(netDate).toString()
         Glide.with(this).load(image_link).into(news_image)
+
+        val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)
+        viewModel.insert(RecentHistory(title = items.text.toString(),date = date, type_id = items.id.toString(), image = image_link, type = "news", userid = "1"))
     }
 }
