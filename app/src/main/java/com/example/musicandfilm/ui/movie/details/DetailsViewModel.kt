@@ -6,25 +6,21 @@ import androidx.lifecycle.ViewModel
 import com.example.musicandfilm.models.movies.MovieDetails
 import com.example.musicandfilm.services.movie.MovieApiInterface
 import com.example.musicandfilm.services.movie.MovieApiService
+import com.example.musicandfilm.services.movie.MovieRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DetailsViewModel : ViewModel() {
     var movie_detail = MutableLiveData<MovieDetails>()
+    val movieRepository = MovieRepository()
 
     init {
         movie_detail=MutableLiveData()
     }
-    fun getSingleMovieData(id: Int):LiveData<MovieDetails>{
-        val apiService = MovieApiService.getInstance().create(MovieApiInterface::class.java)
-        apiService.getMovieDetails(id).enqueue(object : Callback<MovieDetails> {
-            override fun onFailure(call: Call<MovieDetails>, t: Throwable) {}
-            override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-                 movie_detail.postValue(response.body())
-            }
-        })
-        return movie_detail
+
+    fun getMovie(id: Int){
+        movieRepository.getSingleMovieData(id, movie_detail)
     }
 
     fun getLiveDataObserver(): MutableLiveData<MovieDetails> {

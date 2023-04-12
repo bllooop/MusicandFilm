@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.musicandfilm.R
 import com.example.musicandfilm.databinding.FragmentMainBinding
 import com.example.musicandfilm.models.movies.Movie
+import com.example.musicandfilm.ui.profile.ProfileViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,6 +46,8 @@ class MovieCatalogFragment() : Fragment() {
     private fun putMoviesInRv(){
         val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         val rv_movies_list: RecyclerView = binding.rvMoviesList
+        val viewModel1 = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel1.initDatabase()
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
             rv_movies_list.layoutManager = LinearLayoutManager(activity)
             rv_movies_list.setHasFixedSize(true)
@@ -56,7 +59,7 @@ class MovieCatalogFragment() : Fragment() {
             var adapter = MovieAdapter(displayList)
             rv_movies_list.adapter = adapter
         })
-        viewModel.getMovieData()
+        viewModel.getAllMovies()
     }
     override fun onDestroyView() {
         super.onDestroyView()

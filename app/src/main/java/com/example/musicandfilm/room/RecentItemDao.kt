@@ -14,8 +14,8 @@ interface RecentItemDao {
 
     @Update
     suspend fun updateRecentItem(recentHistory: RecentHistory)
-    @Delete
-    suspend fun deleteRecentItem(recentHistory: RecentHistory)
+    @Query("DELETE FROM recent_item_table where id NOT IN (SELECT id from recent_item_table ORDER BY id DESC LIMIT 3)")
+    suspend fun deleteRecentItem()
 
 
 }

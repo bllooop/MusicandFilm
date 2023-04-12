@@ -60,10 +60,11 @@ class NewsDetailsFragment () : Fragment() {
         val args = this.arguments
         val id = args?.getString("id").toString()
         val viewModel = ViewModelProvider(this).get(NewsDetailsViewModel::class.java)
-        viewModel.getSingleNewsData(id).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             arrayList.addAll(it)
             bindNews(arrayList.get(0))
         })
+        viewModel.getDetailNews(id)
         binding.send.setOnClickListener {
             addComment(id)
         }
@@ -79,7 +80,7 @@ class NewsDetailsFragment () : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, comment)
+        val mComment = Comments(userid,id.toString(),email, comment)
         comments.child(id).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }

@@ -59,7 +59,7 @@ class EventsFragment : Fragment() {
             var adapter = EventAdapter(displayList)
             rv_events_list.adapter = adapter
         })
-        viewModel.getEventData()
+        viewModel.getAllEvents()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

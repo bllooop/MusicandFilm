@@ -14,7 +14,7 @@ class RecentItemRepository(private val recentItemDao: RecentItemDao) {
     }
 
     @WorkerThread
-    suspend fun updateRecentItem(recentHistory: RecentHistory){
-        recentItemDao.updateRecentItem(recentHistory)
+    suspend fun deleteRecentItem(){
+        recentItemDao.deleteRecentItem()
     }
 }

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.musicandfilm.LoggedActivity
 import com.example.musicandfilm.MainActivity
 import com.example.musicandfilm.R
@@ -48,7 +49,7 @@ class ProfileFragment : Fragment() {
             checkUser()
         }
         init()
-
+        refreshApp()
     }
 
     private fun init() {
@@ -56,7 +57,8 @@ class ProfileFragment : Fragment() {
         rv_recents_list.layoutManager = LinearLayoutManager(activity)
         rv_recents_list.setHasFixedSize(true)
         val viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        viewModel.initDatabase()
+       // viewModel.initDatabase()
+        viewModel.deleteRecents()
         viewModel.getAllRecents().observe(this,{listRecents ->
             listRecents.asReversed()
             var adapter = ProfileAdapter(listRecents)
@@ -74,6 +76,14 @@ class ProfileFragment : Fragment() {
             activity?.let {
                 startActivity(Intent(it, MainActivity::class.java))
             }
+        }
+    }
+
+    private fun refreshApp(){
+        val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
+        swipe_to_refresh.setOnRefreshListener {
+            init()
+            swipe_to_refresh.isRefreshing = false
         }
     }
 }

@@ -6,86 +6,104 @@
     android:layout_height="match_parent"
     android:paddingBottom="56dp"
     android:background="@color/pale_black">
-
-    <TextView
-        android:id="@+id/titleProfile"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="550dp"
-        android:layout_weight="1"
-        android:text="Аккаунт"
-        android:textColor="@color/white"
-        android:textColorHighlight="@color/white"
-        android:textSize="34sp"
+        android:id ="@+id/swipe_to_refresh"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintEnd_toEndOf = "parent">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
-    <TextView
-        android:id="@+id/titleEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
-        android:text="Вы авторизировались под"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/avatarpic"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/emailname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Email"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/avatarpic"
-        app:layout_constraintTop_toBottomOf="@id/titleEmail" />
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="154dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="#FFEB3B"
-        android:text="Выйти"
-        android:textColor="@color/pale_black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/avatarpic" />
-    <ImageView
-        android:id="@+id/avatarpic"
-        android:layout_width="148dp"
-        android:layout_height="141dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/avatar" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/field_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
-        android:text="История просмотров:"
-        android:textColor="#FFEB3B"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/logout"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_history_list"
-        android:layout_width="346dp"
-        android:layout_height="320dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/field_history" />
+            <TextView
+                android:id="@+id/titleProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Аккаунт"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/titleEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Вы авторизировались под"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/emailname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/avatarpic"
+                android:layout_width="148dp"
+                android:layout_height="141dp"
+                android:layout_marginStart="16dp"
+                app:srcCompat="@drawable/avatar" />
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="154dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:backgroundTint="#FFEB3B"
+                android:text="Выйти"
+                android:textColor="@color/pale_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/avatarpic" />
+            <TextView
+                android:id="@+id/field_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:text="История просмотров:"
+                android:textColor="#FFEB3B"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logout"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_history_list"
+                android:layout_width="346dp"
+                android:layout_height="320dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/field_history" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

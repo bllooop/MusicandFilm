@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide
 import com.example.musicandfilm.databinding.FragmentDetailsBinding
 import com.example.musicandfilm.models.Comments
 import com.example.musicandfilm.models.movies.MovieDetails
+import com.example.musicandfilm.room.RecentHistory
+import com.example.musicandfilm.ui.InsertingRoomViewModel
 import com.example.musicandfilm.ui.events.details.CommentAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -56,9 +58,10 @@ class DetailsFragment : Fragment() {
         val input = args?.getString("id")
         val id = input!!.toInt()
         val viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        viewModel.getSingleMovieData(id).observe(viewLifecycleOwner, Observer {
+        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
             bindMovie(it)
         })
+        viewModel.getMovie(id)
         binding.send.setOnClickListener {
             addComment(id)
         }
@@ -116,6 +119,9 @@ class DetailsFragment : Fragment() {
         movie_status.text = "Выпущен"
         movie_vote_average.text = movies.voteAverage.toString()
         Glide.with(this).load(IMAGE_BASE + movies.posterPath).into(movie_poster)
+        val image_link = IMAGE_BASE + movies.posterPath
+        val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)
+        viewModel.insert(RecentHistory(title = movies.title,date = movies.releaseDate, type_id = movies.id.toString(), image = image_link, type = "movies", userid = "1"))
     }
 
     private fun refreshApp(id: Int){

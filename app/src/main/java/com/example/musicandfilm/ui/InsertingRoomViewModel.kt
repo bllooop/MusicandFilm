@@ -1,5 +1,6 @@
 package com.example.musicandfilm.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicandfilm.REPOSITORY
@@ -12,4 +13,5 @@ class InsertingRoomViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO){
             REPOSITORY.insertRecentItem(recentHistory)
         }
+
 }

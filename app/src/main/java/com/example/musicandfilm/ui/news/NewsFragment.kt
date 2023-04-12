@@ -60,7 +60,7 @@ private fun putNewsInRv(){
             var adapter = NewsAdapter(displayList)
             rv_news_list.adapter = adapter
         })
-        viewModel.getNewsData()
+        viewModel.getAllNews()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
