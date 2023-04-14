@@ -8,4 +8,10 @@
         app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView"
         />
+    <item
+        android:id="@+id/sort_action"
+        android:title="sort"
+        android:icon="@drawable/baseline_filter_alt_24"
+        app:showAsAction="always"
+        />
 </menu>

@@ -23,6 +23,7 @@ class MovieCatalogFragment() : Fragment() {
     val arrayList = ArrayList<Movie>()
     val displayList = ArrayList<Movie>()
     val appContext = context
+    lateinit var rv_movies_list: RecyclerView
     //  private var layoutManager: RecyclerView.LayoutManager? = null
 
     override fun onCreateView(
@@ -39,19 +40,18 @@ class MovieCatalogFragment() : Fragment() {
 
    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
        super.onViewCreated(itemView, savedInstanceState)
+       rv_movies_list = binding.rvMoviesList
         putMoviesInRv()
        refreshApp()
    }
 
     private fun putMoviesInRv(){
         val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-        val rv_movies_list: RecyclerView = binding.rvMoviesList
         val viewModel1 = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel1.initDatabase()
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
             rv_movies_list.layoutManager = LinearLayoutManager(activity)
             rv_movies_list.setHasFixedSize(true)
-            //  getMovieData { movies: List<Movie> ->
             arrayList.clear()
             arrayList.addAll(it)
             displayList.clear()
@@ -68,12 +68,20 @@ class MovieCatalogFragment() : Fragment() {
 
    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
-       val rv_movies_list: RecyclerView = binding.rvMoviesList
        val item = menu!!.findItem(R.id.search_action)
         if (item!=null) {
-        val searchView = item?.actionView as SearchView
+
+        }
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            R.id.search_action -> {
+                val searchView = item?.actionView as SearchView
                 //   displayList.addAll(it)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         return true
                     }
@@ -84,7 +92,7 @@ class MovieCatalogFragment() : Fragment() {
                             arrayList.forEach {
                                 if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
                                     displayList.add(it)
-                                  //  Log.d("MyLog", "test " + it.toString())
+                                    //  Log.d("MyLog", "test " + it.toString())
                                 }
                             }
                             rv_movies_list.adapter!!.notifyDataSetChanged()
@@ -96,8 +104,14 @@ class MovieCatalogFragment() : Fragment() {
                         return true
                     }
                 })
+                return true
+            }
+            R.id.search_action ->{
+                displayList.sortBy { it.title }
+                rv_movies_list.adapter!!.notifyDataSetChanged()
+            }
         }
-        return super.onCreateOptionsMenu(menu, inflater)
+        return super.onOptionsItemSelected(item)
     }
     private fun refreshApp(){
         val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
