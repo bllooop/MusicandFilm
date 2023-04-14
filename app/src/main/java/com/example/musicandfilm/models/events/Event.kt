@@ -14,10 +14,10 @@ data class Event (
     @SerializedName("title")
     val title : String,
     @SerializedName("images")
-    val event_images :@RawValue Any?,
-    @SerializedName("dates"  )
+    val event_images :ArrayList<Images>,
+    @SerializedName("dates")
     val dates  : ArrayList<Dates>
 
 ) : Parcelable {
-    constructor() : this("", "","",arrayListOf())
+    constructor() : this("", "", arrayListOf(),arrayListOf())
 }

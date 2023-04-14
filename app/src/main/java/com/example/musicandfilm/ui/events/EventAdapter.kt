@@ -13,13 +13,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.musicandfilm.R
+import com.example.musicandfilm.models.events.Dates
 import com.example.musicandfilm.models.events.Event
 import com.example.musicandfilm.models.events.FavoriteEvent
+import com.example.musicandfilm.models.events.Images
 import com.example.musicandfilm.models.movies.FavoriteMovie
+import com.example.musicandfilm.models.news.Attachments
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EventAdapter(
     private val events: List<Event>
@@ -34,33 +38,27 @@ class EventAdapter(
         val favorite: ImageButton = view.findViewById(R.id.fav)
         val bundle = Bundle()
         val favEvent = database.getReference("Events")
+        val images = ArrayList<Images>()
+        val dates = ArrayList<Dates>()
 
         fun bindEvent(event: Event, context: Context) {
             val event_title = itemView.findViewById<TextView>(R.id.event_title)
             val event_poster = itemView.findViewById<ImageView>(R.id.event_image)
             val event_date = itemView.findViewById<TextView>(R.id.event_date)
             var date = ""
-            val image_url = event.event_images.toString().removeRange(0,46)
-            val imageev = image_url.subSequence(0, image_url.indexOf(',')).toString()
+            images.addAll(event.event_images)
+            dates.addAll(event.dates)
+            val images: Images = images.get(0)
+            val dates: Dates = dates.last()
+            val image_url = images.image
             event_title.text = event.title.capitalize()
-            val datestr = event.dates.last().toString().removeRange(0,12)
-            if (datestr[0].toString() == minus) {
-                date = datestr.removeRange(0,18)
-                val newdate = date.substringBefore(")")
-                val netDate = Date(newdate.toLong() * 1000)
+                val netDate = Date(dates.end.toLong() * 1000)
                 date = "До " + sdf.format(netDate)
                 event_date.text = date
-            } else {
-                date = datestr.removeRange(0,16)
-                val newdate = date.substringBefore(")")
-                val netDate = Date(newdate.toLong() * 1000)
-                date = "До " + sdf.format(netDate)
-                event_date.text = date
-            }
-            Glide.with(itemView).load(IMAGE_BASE + imageev).into(event_poster)
+            Glide.with(itemView).load(image_url).into(event_poster)
             bundle.putString("id", event.id)
             favorite.setOnClickListener {
-                val mEvent = FavoriteEvent(userid,event.id,event.title,imageev,date)
+                val mEvent = FavoriteEvent(userid,event.id,event.title,image_url,date)
                 favEvent.child(event.id).setValue(mEvent)
                 Toast.makeText(context,"Мероприятие добавлено в избранное", Toast.LENGTH_SHORT).show()
             }
@@ -68,7 +66,6 @@ class EventAdapter(
                 itemView.findNavController()
                     .navigate(R.id.action_navigation_event_to_navigation_event_details, bundle)
             }
-           // event_date.text = datestr
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {

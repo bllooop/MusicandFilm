@@ -18,5 +18,5 @@ data class EventDetail (
     @SerializedName("age_restriction" )
     val ageRestriction : String,
     @SerializedName("images")
-    val images  :@RawValue Any?
+    val images  :ArrayList<Images>
 )

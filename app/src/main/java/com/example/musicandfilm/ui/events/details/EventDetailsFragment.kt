@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.musicandfilm.databinding.FragmentEventDetailsBinding
+import com.example.musicandfilm.models.events.Dates
 import com.example.musicandfilm.models.events.EventDetail
+import com.example.musicandfilm.models.events.Images
 import com.example.musicandfilm.room.RecentHistory
 import com.example.musicandfilm.ui.InsertingRoomViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -30,14 +32,14 @@ class EventDetailsFragment : Fragment() {
     private var _binding: FragmentEventDetailsBinding? = null
     private val binding get() = _binding!!
     private val sdf = SimpleDateFormat("dd/MM/yyyy")
-    private val IMAGE_BASE = "https://kudago.com/media/images/event/"
     private var comment = ""
     private var date = ""
     private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var commentsArrayList:ArrayList<com.example.musicandfilm.models.Comments>
     val database = FirebaseDatabase.getInstance("https://musicandfilm-5497b-default-rtdb.europe-west1.firebasedatabase.app")
     val comments = database.getReference("Comments/Events")
-
+    private val images = ArrayList<Images>()
+    private val dates = ArrayList<Dates>()
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -110,37 +112,29 @@ class EventDetailsFragment : Fragment() {
         })
     }
     fun bindEvent(events: EventDetail){
+        images.addAll(events.images)
+        dates.addAll(events.dates)
+        val images: Images = images.get(0)
+        val dates: Dates = dates.last()
         val event_title: TextView = binding.eventTitle
         val event_age: TextView = binding.eventAge
         val event_location: TextView = binding.location
         val event_date: TextView = binding.eventDate
         val event_poster: ImageView = binding.eventImage
         val event_description: TextView = binding.bodyText
-        val datestr = events.dates.last().toString().removeRange(0,12)
-        if (datestr[0].toString() == "-") {
-            val date1 = datestr.removeRange(0,18)
-            val newdate = date1.substringBefore(")")
-            val netDate = Date(newdate.toLong() * 1000)
+
+            val netDate = Date(dates.end.toLong() * 1000)
             date = sdf.format(netDate)
             event_date.text = date
-        } else {
-            val date1 = datestr.removeRange(0,16)
-            val newdate = date1.substringBefore(")")
-            val netDate = Date(newdate.toLong() * 1000)
-            date = sdf.format(netDate)
-            event_date.text = date
-        }
-        val image_url = events.images.toString().removeRange(0,46)
-        val imageev = image_url.subSequence(0, image_url.indexOf(','))
-        event_title.text = events.title
+        val image_url = images.image
+        event_title.text = events.title.capitalize()
         event_age.text = events.ageRestriction
         val eventurl = events.location.toString().removeRange(0,16)
         event_location.text =  eventurl.subSequence(0, eventurl.indexOf(','))
         event_description.text = events.bodyText.replace("\\<.*?\\>".toRegex(), "")
-        Glide.with(this).load(IMAGE_BASE + imageev).into(event_poster)
-        val imagee = IMAGE_BASE + imageev
+        Glide.with(this).load(image_url).into(event_poster)
         val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)
-        viewModel.insert(RecentHistory(title = events.title,date = date, type_id = events.id.toString(), image = imagee, type = "events", userid = "1"))
+        viewModel.insert(RecentHistory(title = events.title,date = date, type_id = events.id.toString(), image = image_url, type = "events", userid = "1"))
     }
 
     private fun refreshApp(id: Int){
