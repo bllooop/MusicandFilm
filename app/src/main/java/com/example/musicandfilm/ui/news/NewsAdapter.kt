@@ -45,29 +45,28 @@ class NewsAdapter (  private val news: List<Items>
             val news_date = itemView.findViewById<TextView>(R.id.news_date)
             var date = ""
             var image_link = ""
-            news_title.text = items.text
+            if(items.text.isNotEmpty()) { news_title.text = items.text!!.subSequence(0, 25).toString() + "..."}
+            val newdate = items.date
+            val netDate = Date(newdate!!.toLong() * 1000)
+            date = sdf.format(netDate).toString()
+            news_date.text = sdf.format(netDate).toString()
            attachment.addAll(items.attachments)
-            val attachments: Attachments = attachment.first()
-            /*val type  = attachments.type.toString()
-          //  var image_url = items.attachments.toString()
-            if (type == "video") {
-                var image_url = attachments.video!!.image.get(3)
-                image_link = image_url.url.toString()
+            if (attachment.isNotEmpty()) {
+                val attachments: Attachments = attachment.first()
+                val type = attachments.type.toString()
+                var image_url = items.attachments.toString()
+                if (type == "video") {
+                    var image_url = attachments.video!!.image.get(3)
+                    image_link = image_url.url.toString()
+                } else if (type == "photo") {
+                    var image_url = attachments.photo!!.sizes.get(3)
+                    image_link = image_url.url.toString()
+                } else {
+                    var image_url = attachments.link!!.photo!!.sizes.get(3)
+                    image_link = image_url.url.toString()
+                }
+                Glide.with(itemView).load(image_link).into(news_image)
             }
-            else if (type =="photo"){
-                var image_url = attachments.photo!!.sizes.get(3)
-                image_link = image_url.url.toString()
-            }
-            else {
-                var image_url = attachments.link!!.photo!!.sizes.get(3)
-                image_link = image_url.url.toString()
-            }
-            news_title.text = items.text!!.subSequence(0, 25).toString() + "..."
-                  val newdate = items.date
-                    val netDate = Date(newdate!!.toLong() * 1000)
-                     date = sdf.format(netDate).toString()
-            news_date.text =  sdf.format(netDate).toString()
-           Glide.with(itemView).load(image_link).into(news_image)
             val postid = items.ownerId.toString() + "_" + items.id.toString()
              bundle.putString("id", postid)
             favorite.setOnClickListener {
@@ -79,7 +78,7 @@ class NewsAdapter (  private val news: List<Items>
             itemView.setOnClickListener {
                itemView.findNavController()
                    .navigate(R.id.action_navigation_news_to_navigation_news_details, bundle)
-            }*/
+            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {

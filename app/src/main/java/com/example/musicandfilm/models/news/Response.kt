@@ -6,5 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class Response (
 
   @SerializedName("count"    ) var count    : Int?                = null,
-  @SerializedName("items"    ) var items    : ArrayList<Items>    = arrayListOf()
+  @SerializedName("items"    ) var items    : ArrayList<Items>    = arrayListOf(),
+  @SerializedName("copy_history") var copyHistory   : ArrayList<CopyHistory> = arrayListOf(),
+
 )
