@@ -26,7 +26,7 @@ class NewsFragment() : Fragment() {
     val arrayList = ArrayList<Items>()
     val displayList = ArrayList<Items>()
     var testing: String = ""
-
+    lateinit var rv_news_list: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,16 +40,16 @@ class NewsFragment() : Fragment() {
     }
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        rv_news_list= binding.rvNewsList
 
         putNewsInRv ()
-      //  refreshApp()
+       refreshApp()
     }
 
 
 
 private fun putNewsInRv(){
         val viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-        val rv_news_list: RecyclerView = binding.rvNewsList
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             rv_news_list.layoutManager = LinearLayoutManager(activity)
             rv_news_list.setHasFixedSize(true)
@@ -57,44 +57,50 @@ private fun putNewsInRv(){
             arrayList.addAll(it)
             displayList.clear()
             displayList.addAll(arrayList)
+           // displayList.sortBy { it.text }
             var adapter = NewsAdapter(displayList)
             rv_news_list.adapter = adapter
         })
         viewModel.getAllNews()
     }
 
-  /*  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
-        val rv_news_list: RecyclerView = binding.rvNewsList
         val item = menu!!.findItem(R.id.search_action)
-        if (item!=null) {
-            val searchView = item?.actionView as SearchView
-            //   displayList.addAll(it)
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText!!.isNotEmpty()) {
-                        displayList.clear()
-                        val search = newText.toLowerCase(Locale.getDefault())
-                        arrayList.forEach {
-                            if (it.text!!.toLowerCase(Locale.getDefault()).contains(search)) {
-                                displayList.add(it)
-                                //  Log.d("MyLog", "test " + it.toString())
-                            }
+        val searchView = item?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText!!.isNotEmpty()) {
+                    displayList.clear()
+                    val search = newText.toLowerCase(Locale.getDefault())
+                    arrayList.forEach {
+                        if (it.text.toLowerCase(Locale.getDefault()).contains(search)) {
+                            displayList.add(it)
                         }
-                        rv_news_list.adapter!!.notifyDataSetChanged()
-                    } else {
-                        displayList.clear()
-                        displayList.addAll(arrayList)
-                     //   rv_news_list.adapter!!.notifyDataSetChanged()
                     }
-                    return true
+                    rv_news_list.adapter!!.notifyDataSetChanged()
+                } else {
+                    putNewsInRv()
                 }
-            })
-        }
+                return true
+            }
+        })
         return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            R.id.sort_action ->{
+                displayList.sortBy { it.text }
+                rv_news_list.adapter!!.notifyDataSetChanged()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
    private fun refreshApp(){
        val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
@@ -102,5 +108,5 @@ private fun putNewsInRv(){
            putNewsInRv()
            swipe_to_refresh.isRefreshing = false
        }
-   }*/
+   }
 }

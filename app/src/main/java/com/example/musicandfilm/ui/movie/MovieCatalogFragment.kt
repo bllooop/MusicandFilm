@@ -69,44 +69,41 @@ class MovieCatalogFragment() : Fragment() {
    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
        val item = menu!!.findItem(R.id.search_action)
-        if (item!=null) {
+       if (item!=null) {
+           val searchView = item?.actionView as SearchView
+           //   displayList.addAll(it)
+           searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+               override fun onQueryTextSubmit(query: String?): Boolean {
+                   return true
+               }
 
-        }
+               override fun onQueryTextChange(newText: String?): Boolean {
+                   if (newText!!.isNotEmpty()) {
+                       displayList.clear()
+                       val search = newText.toLowerCase(Locale.getDefault())
+                       arrayList.forEach {
+                           if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
+                               displayList.add(it)
+                               //  Log.d("MyLog", "test " + it.toString())
+                           }
+                       }
+                       rv_movies_list.adapter!!.notifyDataSetChanged()
+                   } else {
+                       displayList.clear()
+                       displayList.addAll(arrayList)
+                       rv_movies_list.adapter!!.notifyDataSetChanged()
+                   }
+                   return true
+               }
+           })
+       }
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
-            R.id.search_action -> {
-                val searchView = item?.actionView as SearchView
-                //   displayList.addAll(it)
-                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        return true
-                    }
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        if (newText!!.isNotEmpty()) {
-                            displayList.clear()
-                            val search = newText.toLowerCase(Locale.getDefault())
-                            arrayList.forEach {
-                                if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
-                                    displayList.add(it)
-                                    //  Log.d("MyLog", "test " + it.toString())
-                                }
-                            }
-                            rv_movies_list.adapter!!.notifyDataSetChanged()
-                        } else {
-                            displayList.clear()
-                            displayList.addAll(arrayList)
-                            rv_movies_list.adapter!!.notifyDataSetChanged()
-                        }
-                        return true
-                    }
-                })
-                return true
-            }
-            R.id.search_action ->{
+            R.id.sort_action ->{
                 displayList.sortBy { it.title }
                 rv_movies_list.adapter!!.notifyDataSetChanged()
             }

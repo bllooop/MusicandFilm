@@ -22,7 +22,7 @@ class EventsFragment : Fragment() {
     private val binding get() = _binding!!
     val arrayList = ArrayList<Event>()
     val displayList = ArrayList<Event>()
-
+    lateinit var rv_events_list: RecyclerView
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -42,14 +42,14 @@ class EventsFragment : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-        putNewsRV()
+        rv_events_list = binding.rvEventsList
+        putEventsInRv()
         refreshApp()
     }
 
-    private fun putNewsRV(){
+    private fun putEventsInRv(){
         val viewModel = ViewModelProvider(this).get(EventViewModel::class.java)
         val unixTime = System.currentTimeMillis() / 1000;
-        val rv_events_list: RecyclerView = binding.rvEventsList
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             rv_events_list.layoutManager = LinearLayoutManager(activity)
             rv_events_list.setHasFixedSize(true)
@@ -66,41 +66,47 @@ class EventsFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
-        val rv_events_list: RecyclerView = binding.rvEventsList
         val item = menu!!.findItem(R.id.search_action)
-        if (item!=null) {
-            val searchView = item?.actionView as SearchView
-            //   displayList.addAll(it)
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText!!.isNotEmpty()) {
-                        displayList.clear()
-                        val search = newText.toLowerCase(Locale.getDefault())
-                        arrayList.forEach {
-                            if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
-                                displayList.add(it)
-                                //  Log.d("MyLog", "test " + it.toString())
-                            }
+        val searchView = item?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText!!.isNotEmpty()) {
+                    displayList.clear()
+                    val search = newText.toLowerCase(Locale.getDefault())
+                    arrayList.forEach {
+                        if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
+                            displayList.add(it)
                         }
-                        rv_events_list.adapter!!.notifyDataSetChanged()
-                    } else {
-                        displayList.clear()
-                        displayList.addAll(arrayList)
-                       // rv_events_list.adapter!!.notifyDataSetChanged()
                     }
-                    return true
+                    rv_events_list.adapter!!.notifyDataSetChanged()
+                } else {
+                    putEventsInRv()
                 }
-            })
-        }
+                return true
+            }
+        })
         return super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            R.id.sort_action ->{
+                displayList.sortBy { it.title }
+                rv_events_list.adapter!!.notifyDataSetChanged()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
     private fun refreshApp(){
         val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
         swipe_to_refresh.setOnRefreshListener {
-            putNewsRV()
+            putEventsInRv()
             swipe_to_refresh.isRefreshing = false
         }
     }
