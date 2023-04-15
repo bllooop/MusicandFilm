@@ -45,9 +45,10 @@ class NewsAdapter (  private val news: List<Items>
             val news_date = itemView.findViewById<TextView>(R.id.news_date)
             var date = ""
             var image_link = ""
-            attachment.addAll(items.attachments)
-            val attachments: Attachments = attachment.get(0)
-            val type  = attachments.type.toString()
+            news_title.text = items.text
+           attachment.addAll(items.attachments)
+            val attachments: Attachments = attachment.first()
+            /*val type  = attachments.type.toString()
           //  var image_url = items.attachments.toString()
             if (type == "video") {
                 var image_url = attachments.video!!.image.get(3)
@@ -78,7 +79,7 @@ class NewsAdapter (  private val news: List<Items>
             itemView.setOnClickListener {
                itemView.findNavController()
                    .navigate(R.id.action_navigation_news_to_navigation_news_details, bundle)
-            }
+            }*/
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {

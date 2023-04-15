@@ -42,7 +42,7 @@ class NewsFragment() : Fragment() {
         super.onViewCreated(itemView, savedInstanceState)
 
         putNewsInRv ()
-        refreshApp()
+      //  refreshApp()
     }
 
 
@@ -63,7 +63,7 @@ private fun putNewsInRv(){
         viewModel.getAllNews()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+  /*  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
         val rv_news_list: RecyclerView = binding.rvNewsList
         val item = menu!!.findItem(R.id.search_action)
@@ -102,5 +102,5 @@ private fun putNewsInRv(){
            putNewsInRv()
            swipe_to_refresh.isRefreshing = false
        }
-   }
+   }*/
 }

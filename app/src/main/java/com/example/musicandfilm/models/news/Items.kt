@@ -7,8 +7,8 @@ import kotlinx.android.parcel.RawValue
 data class Items (
 
   @SerializedName("attachments"     ) var attachments   : ArrayList<Attachments> = arrayListOf(),
-  @SerializedName("date"            ) var date          : Int?                   = null,
-  @SerializedName("id"              ) var id            : Int?                   = null,
-  @SerializedName("owner_id"        ) var ownerId       : Int?                   = null,
-  @SerializedName("text"            ) var text          : String?                = null
+  @SerializedName("date"            ) var date          : Int                  = 0,
+  @SerializedName("id"              ) var id            : Int                   = 0,
+  @SerializedName("owner_id"        ) var ownerId       : Int                   = 0,
+  @SerializedName("text"            ) var text          : String                = ""
 )
