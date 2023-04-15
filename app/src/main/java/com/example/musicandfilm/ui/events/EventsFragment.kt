@@ -14,6 +14,7 @@ import com.example.musicandfilm.databinding.FragmentEventsBinding
 import com.example.musicandfilm.models.events.Event
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDateTime
 import java.util.*
 
 class EventsFragment : Fragment() {
@@ -47,6 +48,7 @@ class EventsFragment : Fragment() {
 
     private fun putNewsRV(){
         val viewModel = ViewModelProvider(this).get(EventViewModel::class.java)
+        val unixTime = System.currentTimeMillis() / 1000;
         val rv_events_list: RecyclerView = binding.rvEventsList
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             rv_events_list.layoutManager = LinearLayoutManager(activity)
@@ -59,7 +61,7 @@ class EventsFragment : Fragment() {
             var adapter = EventAdapter(displayList)
             rv_events_list.adapter = adapter
         })
-        viewModel.getAllEvents()
+        viewModel.getAllEvents(unixTime.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

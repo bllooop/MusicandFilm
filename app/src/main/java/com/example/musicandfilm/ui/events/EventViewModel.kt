@@ -19,7 +19,7 @@ class EventViewModel : ViewModel() {
         return eventss
     }
 
-    fun getAllEvents(){
-        eventRepository.getEventData(eventss)
+    fun getAllEvents(time: String){
+        eventRepository.getEventData(time, eventss)
     }
 }

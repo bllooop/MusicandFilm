@@ -10,9 +10,9 @@ import retrofit2.Response
 
 class EventRepository {
 
-    fun getEventData(eventss:MutableLiveData<List<Event>>){
+    fun getEventData(time: String, eventss:MutableLiveData<List<Event>>){
         val apiService = EventApiService.getInstance().create(EventApiInterface::class.java)
-        apiService.getEventList().enqueue(object : Callback<EventResponse> {
+        apiService.getEventList(time).enqueue(object : Callback<EventResponse> {
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {}
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 return eventss.postValue(response.body()!!.events)
