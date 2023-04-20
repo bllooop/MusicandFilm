@@ -81,7 +81,7 @@ class EventDetailsFragment : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, comment)
+        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, "0", "events", comment)
         comments.child(id.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }

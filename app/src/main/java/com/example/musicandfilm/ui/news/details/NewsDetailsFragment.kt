@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -57,6 +58,7 @@ class NewsDetailsFragment () : Fragment() {
     }
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+
         val args = this.arguments
         val id = args?.getString("id").toString()
         val viewModel = ViewModelProvider(this).get(NewsDetailsViewModel::class.java)
@@ -80,7 +82,7 @@ class NewsDetailsFragment () : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-        val mComment = Comments(userid,id.toString(),email, comment)
+        val mComment = Comments(userid,id.toString(),email, "0","news",comment)
         comments.child(id).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }

@@ -17,16 +17,20 @@ RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
         val bundle = Bundle()
         val database = FirebaseDatabase.getInstance("https://musicandfilm-5497b-default-rtdb.europe-west1.firebasedatabase.app")
         val comment = database.getReference("Comments")
-        fun bindMovie(comments: Comments, context: Context) {
+        fun bindComment(comments: Comments, context: Context) {
             val comment_name = itemView.findViewById<TextView>(R.id.comment_name)
             val comment_text = itemView.findViewById<TextView>(R.id.comment_text)
             comment_name.text = comments.email
             comment_text.text = comments.text
+
+            if (comments.type == "movie") {
+                comment_text.text = comments.stars + "/5 \n" + comments.text
+            }
         }
     }
     override fun onBindViewHolder(holder: CommentAdapter.CommentViewHolder, position: Int) {
         var context: Context = holder.itemView.context
-        holder.bindMovie(comments.get(position),context)
+        holder.bindComment(comments.get(position),context)
     }
     override fun getItemCount(): Int {
         return comments.size

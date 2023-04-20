@@ -68,7 +68,7 @@
         android:layout_width="277dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#FFC800"
+        android:backgroundTint="@color/yellow"
         android:text="Создать аккаунт"
         android:textAlignment="center"
         android:textColor="#000000"

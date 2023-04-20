@@ -26,6 +26,7 @@ class ProfileAdapter (
     private val recents: List<RecentHistory>
 ) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>(){
     class ProfileViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+        val bundle = Bundle()
 
         fun bindRecents(recents: RecentHistory, context: Context) {
             val title = itemView.findViewById<TextView>(R.id.title)
@@ -34,7 +35,27 @@ class ProfileAdapter (
             title.text = recents.title.subSequence(0, 25).toString() + "..."
             Glide.with(itemView).load(recents.image).into(poster)
             date.text = recents.date
-
+            if (recents.type == "news") {
+                bundle.putString("id", recents.id.toString())
+                itemView.setOnClickListener {
+                    itemView.findNavController()
+                        .navigate(R.id.action_navigation_news_to_navigation_news_details, bundle)
+                }
+            }
+            if (recents.type == "events") {
+                bundle.putString("id", recents.id.toString())
+                itemView.setOnClickListener {
+                    itemView.findNavController()
+                        .navigate(R.id.action_navigation_event_to_navigation_event_details, bundle)
+                }
+            }
+            if (recents.type == "movies") {
+                bundle.putString("id", recents.id.toString())
+                itemView.setOnClickListener {
+                    itemView.findNavController()
+                        .navigate(R.id.action_navigation_main_to_navigation_details, bundle)
+                }
+            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {

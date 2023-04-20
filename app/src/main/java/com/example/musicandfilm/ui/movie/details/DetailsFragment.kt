@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -32,15 +33,13 @@ class DetailsFragment : Fragment() {
     private val IMAGE_BASE = "https://image.tmdb.org/t/p/w500/"
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-
     private var comment = ""
     private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var commentsArrayList: ArrayList<Comments>
     val database = FirebaseDatabase.getInstance("https://musicandfilm-5497b-default-rtdb.europe-west1.firebasedatabase.app")
     val comments = database.getReference("Comments/Movies")
-
     private lateinit var viewModel: DetailsViewModel
-
+    lateinit  var ratingBar: RatingBar
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +53,7 @@ class DetailsFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ratingBar = binding.ratingBar
         val args = this.arguments
         val input = args?.getString("id")
         val id = input!!.toInt()
@@ -76,7 +76,7 @@ class DetailsFragment : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, comment)
+        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, ratingBar.rating.toString(), "movie", comment)
         comments.child(id.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
@@ -113,11 +113,13 @@ class DetailsFragment : Fragment() {
         val movie_vote_average: TextView = binding.movieVoteAverage
         val movie_poster: ImageView = binding.moviePoster
         val movie_release_date: TextView = binding.movieReleaseDate
+        val description: TextView = binding.movieText
         movie_title.text = movies.title
         movie_release_date.text = movies.releaseDate
         movie_runtime.text = movies.runtime.toString() + " мин"
         movie_status.text = "Выпущен"
         movie_vote_average.text = movies.voteAverage.toString()
+        description.text = movies.overview
         Glide.with(this).load(IMAGE_BASE + movies.posterPath).into(movie_poster)
         val image_link = IMAGE_BASE + movies.posterPath
         val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)

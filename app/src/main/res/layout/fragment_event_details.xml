@@ -72,7 +72,7 @@
                         android:layout_margin="8dp"
                         android:layout_marginTop="12dp"
                         android:text="Возраст"
-                        android:textColor="#FFEB3B"
+                        android:textColor="@color/yellow"
                         android:textSize="16sp" />
                         <TextView
                             android:id="@+id/event_age"
@@ -81,7 +81,7 @@
                             android:layout_margin="8dp"
                             android:layout_marginTop="12dp"
                             android:text="Age"
-                            android:textColor="#FFEB3B"
+                            android:textColor="@color/yellow"
                             android:textSize="16sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -95,7 +95,7 @@
                             android:layout_margin="8dp"
                             android:layout_marginTop="12dp"
                             android:text="Город"
-                            android:textColor="#FFEB3B"
+                            android:textColor="@color/yellow"
                             android:textSize="16sp" />
                         <TextView
                             android:id="@+id/location"
@@ -104,7 +104,7 @@
                             android:layout_margin="8dp"
                             android:layout_marginTop="12dp"
                             android:text="City"
-                            android:textColor="#FFEB3B"
+                            android:textColor="@color/yellow"
                             android:textSize="16sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -118,7 +118,7 @@
                             android:layout_margin="8dp"
                             android:layout_marginTop="12dp"
                             android:text="До"
-                            android:textColor="#FFEB3B"
+                            android:textColor="@color/yellow"
                             android:textSize="16sp" />
 
                         <TextView
@@ -128,7 +128,7 @@
                             android:layout_margin="8dp"
                             android:layout_marginTop="12dp"
                             android:text="Date"
-                            android:textColor="#FFEB3B"
+                            android:textColor="@color/yellow"
                             android:textSize="16sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -142,7 +142,7 @@
                         android:layout_margin="8dp"
                         android:layout_marginTop="8dp"
                         android:text="Описание"
-                        android:textColor="#FFEB3B"
+                        android:textColor="@color/yellow"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -154,7 +154,7 @@
                         android:layout_marginTop="8dp"
                         android:textSize="16sp"
                         android:text="Комментарии:"
-                        android:textColor="#FFEB3B" />
+                        android:textColor="@color/yellow" />
 
                     <EditText
                         android:id="@+id/comment_text"
@@ -176,7 +176,7 @@
                         android:id="@+id/send"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFC800"
+                        android:backgroundTint="@color/yellow"
                         app:layout_constraintTop_toTopOf="@id/comment_text"
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="Опубликовать"
