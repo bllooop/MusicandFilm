@@ -20,9 +20,10 @@ RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
         fun bindComment(comments: Comments, context: Context) {
             val comment_name = itemView.findViewById<TextView>(R.id.comment_name)
             val comment_text = itemView.findViewById<TextView>(R.id.comment_text)
+            val comment_date = itemView.findViewById<TextView>(R.id.comment_date)
             comment_name.text = comments.email
             comment_text.text = comments.text
-
+            comment_date.text = comments.date
             if (comments.type == "movie") {
                 comment_text.text = comments.stars + "/5 \n" + comments.text
             }
