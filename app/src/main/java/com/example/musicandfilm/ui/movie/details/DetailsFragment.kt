@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
 import java.util.ArrayList
 
 
@@ -34,6 +35,7 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
     private var comment = ""
+    private val sdf = SimpleDateFormat("dd/MM/yyyy")
     private lateinit var firebaseAuth : FirebaseAuth
     private lateinit var commentsArrayList: ArrayList<Comments>
     val database = FirebaseDatabase.getInstance("https://musicandfilm-5497b-default-rtdb.europe-west1.firebasedatabase.app")
@@ -76,7 +78,9 @@ class DetailsFragment : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, ratingBar.rating.toString(), "movie", comment)
+        val unixTime = System.currentTimeMillis() / 1000;
+        val comment_date = sdf.format(unixTime)
+        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, ratingBar.rating.toString(), "movie", comment,comment_date)
         comments.child(id.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
