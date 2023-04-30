@@ -31,6 +31,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class NewsDetailsFragment () : Fragment() {
@@ -81,12 +83,14 @@ class NewsDetailsFragment () : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val current = LocalDateTime.now().format(formatter)
         val email = firebaseAuth.currentUser!!.email.toString()
-        val unixTime = System.currentTimeMillis() / 1000;
-        val comment_date = sdf.format(unixTime)
+        //val unixTime = System.currentTimeMillis() / 1000;
+        val comment_date = sdf.format(current)
         val mComment = Comments(userid,id.toString(),email, "0","News",comment,comment_date)
         comments.child(userid).setValue(mComment)
-        Toast.makeText(context,"Комментарий опубликован" + comment_date.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
 
     private fun viewComments(id: String){
