@@ -14,4 +14,6 @@ interface NewsApiInterface {
 
     @GET ("wall.getById?extended=1&v=5.131&access_token=2300f98b2300f98b2300f98bc12013d013223002300f98b4718217f8b8176811f7b0136")
     fun getNewsDetail(@Query("posts") id: String): Call<NewsResponse>
+    @GET("wall.get?owner_id=-12256840&count=20&extended=1&v=5.131&access_token=2300f98b2300f98b2300f98bc12013d013223002300f98b4718217f8b8176811f7b0136")
+    fun getNewsListMusic(): Call<NewsResponse>
 }

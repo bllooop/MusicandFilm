@@ -20,7 +20,9 @@ class EventApiService {
             if(retrofit == null){
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(clientBuilder.build())
+                    .client(clientBuilder.followRedirects(true)
+                        .followSslRedirects(true)
+                        .build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }

@@ -32,7 +32,7 @@ class ProfileAdapter (
             val title = itemView.findViewById<TextView>(R.id.title)
             val poster = itemView.findViewById<ImageView>(R.id.poster)
             val date = itemView.findViewById<TextView>(R.id.date)
-            title.text = recents.title.subSequence(0, 25).toString() + "..."
+//            title.text = recents.title.subSequence(0, 25).toString() + "..."
             Glide.with(itemView).load(recents.image).into(poster)
             date.text = recents.date
             if (recents.type == "news") {

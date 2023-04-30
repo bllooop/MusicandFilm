@@ -15,7 +15,9 @@ class EventRepository {
         apiService.getEventList(time).enqueue(object : Callback<EventResponse> {
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {}
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
-                return eventss.postValue(response.body()!!.events)
+                if(response.code()==200) {
+                    return eventss.postValue(response.body()!!.events)
+                }
             }
         })
     }

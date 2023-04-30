@@ -9,12 +9,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NewsRepository (){
-    fun getNewsData(newss: MutableLiveData<List<Items>>) {
+    fun getNewsData(news: MutableLiveData<List<Items>>) {
         val apiService = NewsApiService.getInstance().create(NewsApiInterface::class.java)
         apiService.getNewsList().enqueue(object : Callback<NewsResponse> {
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {}
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                return newss.postValue(response.body()!!.response!!.items)
+                return news.postValue(response.body()!!.response!!.items)
             }
         })
     }
@@ -28,4 +28,14 @@ class NewsRepository (){
             }
         })
     }
+    fun getNewsMusic(news: MutableLiveData<List<Items>>) {
+        val apiService = NewsApiService.getInstance().create(NewsApiInterface::class.java)
+        apiService.getNewsListMusic().enqueue(object : Callback<NewsResponse> {
+            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {}
+            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                return news.postValue(response.body()!!.response!!.items)
+            }
+        })
+    }
+
 }

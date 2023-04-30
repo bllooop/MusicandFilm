@@ -83,8 +83,8 @@ class EventDetailsFragment : Fragment() {
         val email = firebaseAuth.currentUser!!.email.toString()
         val unixTime = System.currentTimeMillis() / 1000;
         val comment_date = sdf.format(unixTime)
-        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, "0", "events", comment,comment_date)
-        comments.child(id.toString()).setValue(mComment)
+        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, "0", "Events", comment,comment_date)
+        comments.child(userid).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
 

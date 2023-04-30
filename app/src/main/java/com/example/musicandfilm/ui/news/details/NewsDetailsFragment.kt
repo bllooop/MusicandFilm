@@ -84,9 +84,9 @@ class NewsDetailsFragment () : Fragment() {
         val email = firebaseAuth.currentUser!!.email.toString()
         val unixTime = System.currentTimeMillis() / 1000;
         val comment_date = sdf.format(unixTime)
-        val mComment = Comments(userid,id.toString(),email, "0","news",comment,comment_date)
-        comments.child(id).setValue(mComment)
-        Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
+        val mComment = Comments(userid,id.toString(),email, "0","News",comment,comment_date)
+        comments.child(userid).setValue(mComment)
+        Toast.makeText(context,"Комментарий опубликован" + comment_date.toString(), Toast.LENGTH_SHORT).show()
     }
 
     private fun viewComments(id: String){

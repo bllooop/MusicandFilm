@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_navigation_login_to_navigation_register"
             app:destination="@id/navigation_register" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_recover"
+            app:destination="@id/navigation_recover" />
     </fragment>
     <fragment
         android:id="@+id/navigation_register"
@@ -21,5 +24,14 @@
         <action
             android:id="@+id/action_navigation_register_to_navigation_login"
             app:destination="@id/navigation_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_recover"
+        android:name="com.example.musicandfilm.ui.register.RecoverPasswordFragment"
+        android:label="@string/title_recover"
+        tools:layout="@layout/fragment_recover" >
+        <action
+            android:id="@+id/action_navigation_recover_to_navigation_register"
+            app:destination="@id/navigation_register" />
     </fragment>
 </navigation>
