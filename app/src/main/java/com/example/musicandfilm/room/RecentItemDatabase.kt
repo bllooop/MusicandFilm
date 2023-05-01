@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.musicandfilm.models.events.Event
 
 @Database(
     entities = [RecentHistory::class],
+        //Event::class],
     version = 1
 )
 abstract class RecentItemDatabase :RoomDatabase() {

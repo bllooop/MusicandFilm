@@ -46,7 +46,7 @@ class EventAdapter(
             val event_poster = itemView.findViewById<ImageView>(R.id.event_image)
             val event_date = itemView.findViewById<TextView>(R.id.event_date)
             var date = ""
-            images.addAll(event.event_images)
+            images.addAll(event.images)
             dates.addAll(event.dates)
             val images: Images = images.get(0)
             val dates: Dates = dates.last()

@@ -64,17 +64,21 @@ class EventDetailsFragment : Fragment() {
         val args = this.arguments
         val input = args?.getString("id")
         val id = input!!.toInt()
-        val viewModel = ViewModelProvider(this).get(EventDetailsViewModel::class.java)
-        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
-           bindEvent(it)
-        })
+        addDetailData(id)
         binding.send.setOnClickListener {
             addComment(id)
         }
-        viewModel.getEvent(id)
         viewComments(id)
         refreshApp(id)
 
+    }
+
+    private fun addDetailData(id:Int){
+        val viewModel = ViewModelProvider(this).get(EventDetailsViewModel::class.java)
+        viewModel.getLiveDataObserver().observe(viewLifecycleOwner, Observer {
+            bindEvent(it)
+        })
+        viewModel.getEvent(id)
     }
 
     private fun addComment(id: Int){
@@ -147,6 +151,7 @@ class EventDetailsFragment : Fragment() {
         val swipe_to_refresh: SwipeRefreshLayout = binding.swipeToRefresh
         swipe_to_refresh.setOnRefreshListener {
             viewComments(id)
+            addDetailData(id)
             swipe_to_refresh.isRefreshing = false
         }
     }

@@ -3,6 +3,7 @@ package com.example.musicandfilm.ui.movie
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -91,7 +92,9 @@ class MovieCatalogFragment() : Fragment() {
                    } else {
                        displayList.clear()
                        displayList.addAll(arrayList)
-                       rv_movies_list.adapter!!.notifyDataSetChanged()
+                       if (rv_movies_list.isNotEmpty()) {
+                           rv_movies_list.adapter!!.notifyDataSetChanged()
+                       }
                    }
                    return true
                }

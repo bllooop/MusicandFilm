@@ -64,7 +64,7 @@ class EventsFragment : Fragment() {
         viewModel.getAllEvents(unixTime.toString())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
         val item = menu!!.findItem(R.id.search_action)
         val searchView = item?.actionView as SearchView
@@ -89,7 +89,7 @@ class EventsFragment : Fragment() {
             }
         })
         return super.onCreateOptionsMenu(menu, inflater)
-    }
+    } */
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId

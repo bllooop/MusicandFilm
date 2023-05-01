@@ -45,7 +45,7 @@ class NewsAdapter (  private val news: List<Items>
             val news_date = itemView.findViewById<TextView>(R.id.news_date)
             var date = ""
             var image_link = ""
-            if(items.text.isNotEmpty()) { news_title.text = items.text!!.subSequence(0, 25).toString() + "..."}
+            if(items.text.isNotEmpty()) { news_title.text = items.text!!.subSequence(0,10).toString() + "..."}
             val newdate = items.date
             val netDate = Date(newdate!!.toLong() * 1000)
             date = sdf.format(netDate).toString()

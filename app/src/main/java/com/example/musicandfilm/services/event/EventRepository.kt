@@ -4,11 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import com.example.musicandfilm.models.events.Event
 import com.example.musicandfilm.models.events.EventDetail
 import com.example.musicandfilm.models.events.EventResponse
+import com.example.musicandfilm.room.RecentItemDao
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventRepository {
+class EventRepository() {
 
     fun getEventData(time: String, eventss:MutableLiveData<List<Event>>){
         val apiService = EventApiService.getInstance().create(EventApiInterface::class.java)
@@ -26,7 +27,9 @@ class EventRepository {
         apiService.getEventDetail(id).enqueue(object : Callback<EventDetail> {
             override fun onFailure(call: Call<EventDetail>, t: Throwable) {}
             override fun onResponse(call: Call<EventDetail>, response: Response<EventDetail>) {
-                event_detail.postValue(response.body())
+                if (response.code()==200) {
+                    event_detail.postValue(response.body())
+                }
             }
         })
     }
