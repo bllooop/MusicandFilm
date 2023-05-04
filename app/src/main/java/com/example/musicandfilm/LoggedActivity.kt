@@ -6,6 +6,7 @@ import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.musicandfilm.databinding.ActivityLoggedBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,10 +24,10 @@ class LoggedActivity: AppCompatActivity()  {
         val navController = findNavController(R.id.nav_host_fragment_activity_logged)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_main, R.id.navigation_favorite,R.id.navigation_profile, R.id.navigation_event
+                R.id.navigation_main, R.id.navigation_favorite,R.id.navigation_profile, R.id.navigation_event, R.id.navigation_news
             )
         )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
