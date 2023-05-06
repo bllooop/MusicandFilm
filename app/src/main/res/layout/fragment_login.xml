@@ -14,24 +14,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="224dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="550dp"
         android:layout_weight="1"
         android:text="Авторизация"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/emails"
         android:layout_width="278dp"
         android:layout_height="48dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="@color/light_grey"
         android:ems="10"
         android:foregroundTint="@color/light_grey"
@@ -44,6 +42,7 @@
         android:textColorLink="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleText" />
 
@@ -88,7 +87,7 @@
         android:layout_width="277dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#FFC800"
+        android:backgroundTint="@color/yellow"
         android:text="Авторизоваться"
         android:textAlignment="center"
         android:textColor="#000000"
@@ -96,11 +95,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwords" />
+
     <TextView
         android:id="@+id/recoverText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="28dp"
         android:text="Забыли пароль?"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
@@ -108,5 +108,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="159dp"
+        android:layout_height="151dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/titleText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/app_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

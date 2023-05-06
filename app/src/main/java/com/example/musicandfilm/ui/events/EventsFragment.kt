@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,7 +65,7 @@ class EventsFragment : Fragment() {
         viewModel.getAllEvents(unixTime.toString())
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
         val item = menu!!.findItem(R.id.search_action)
         val searchView = item?.actionView as SearchView
@@ -83,13 +84,17 @@ class EventsFragment : Fragment() {
                     }
                     rv_events_list.adapter!!.notifyDataSetChanged()
                 } else {
-                    putEventsInRv()
+                    displayList.clear()
+                    displayList.addAll(arrayList)
+                    if (rv_events_list.isNotEmpty()) {
+                        rv_events_list.adapter!!.notifyDataSetChanged()
+                    }
                 }
                 return true
             }
         })
         return super.onCreateOptionsMenu(menu, inflater)
-    } */
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId

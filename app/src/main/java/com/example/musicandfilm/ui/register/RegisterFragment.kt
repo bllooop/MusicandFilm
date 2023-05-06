@@ -23,6 +23,8 @@ class RegisterFragment():Fragment() {
     private lateinit var firebaseAuth : FirebaseAuth
     private var email = ""
     private var password = ""
+    private var password1 = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +50,8 @@ class RegisterFragment():Fragment() {
     private fun validateData(){
         email = binding.email.text.toString().trim()
         password = binding.password.text.toString().trim()
+        password1 = binding.password1.text.toString().trim()
+
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.email.error = "Некорректный формат"
         }
@@ -55,6 +59,10 @@ class RegisterFragment():Fragment() {
             binding.password.error = "Введите пароль"
         } else if(password.length<6){
             binding.password.error = "Слишком короткий пароль"
+        }
+        else if (password !=password1){
+            binding.password.error = "Пароли не совпадают"
+
         }
         else {
             firebaseSignUp()

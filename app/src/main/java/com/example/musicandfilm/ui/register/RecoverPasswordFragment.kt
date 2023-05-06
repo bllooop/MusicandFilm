@@ -23,7 +23,8 @@ class RecoverPasswordFragment(): Fragment() {
     private lateinit var progressDialog: ProgressDialog
     private lateinit var firebaseAuth : FirebaseAuth
     private var email = ""
-    private var password = ""
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,23 +49,19 @@ class RecoverPasswordFragment(): Fragment() {
     }
     private fun validateData(){
         email = binding.email.text.toString().trim()
-        password = binding.password.text.toString().trim()
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.email.error = "Некорректный формат"
         }
-        else if ( TextUtils.isEmpty(password)){
-            binding.password.error = "Введите пароль"
-        } else if(password.length<6){
-            binding.password.error = "Слишком короткий пароль"
-        }
         else {
-            firebaseSignUp()
+            firebaseReset()
         }
     }
-    private fun firebaseSignUp(){
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+    private fun firebaseReset(){
+        firebaseAuth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
                 activity?.let {
+                    Toast.makeText(it, "Отправлено письмо с ссылкой для восстановления", Toast.LENGTH_LONG)
+                        .show()
                     startActivity(Intent(it, LoggedActivity::class.java))
                 }
             }

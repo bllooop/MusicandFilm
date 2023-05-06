@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.705" />
 
     <EditText
         android:id="@+id/email"
@@ -103,7 +103,7 @@
         android:id="@+id/logText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="52dp"
         android:text="Есть аккаунт? Авторизоваться"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
