@@ -2,6 +2,7 @@ package com.example.musicandfilm.ui.events
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.isNotEmpty
@@ -24,6 +25,8 @@ class EventsFragment : Fragment() {
     val arrayList = ArrayList<Event>()
     val displayList = ArrayList<Event>()
     lateinit var rv_events_list: RecyclerView
+    private var progressBar: ProgressBar? = null
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -44,11 +47,14 @@ class EventsFragment : Fragment() {
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
         rv_events_list = binding.rvEventsList
+        progressBar = binding.progressBar
+        progressBar!!.visibility = View.VISIBLE
         putEventsInRv()
         refreshApp()
     }
 
     private fun putEventsInRv(){
+        progressBar!!.visibility = View.VISIBLE
         val viewModel = ViewModelProvider(this).get(EventViewModel::class.java)
         val unixTime = System.currentTimeMillis() / 1000;
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -63,6 +69,8 @@ class EventsFragment : Fragment() {
             rv_events_list.adapter = adapter
         })
         viewModel.getAllEvents(unixTime.toString())
+        if (rv_events_list.isNotEmpty()) {  progressBar!!.visibility = View.INVISIBLE }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,6 +88,7 @@ class EventsFragment : Fragment() {
                     arrayList.forEach {
                         if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
                             displayList.add(it)
+                            progressBar!!.visibility = View.INVISIBLE
                         }
                     }
                     rv_events_list.adapter!!.notifyDataSetChanged()

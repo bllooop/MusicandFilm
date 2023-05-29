@@ -132,6 +132,7 @@ class EventDetailsFragment : Fragment() {
         val event_date: TextView = binding.eventDate
         val event_poster: ImageView = binding.eventImage
         val event_description: TextView = binding.bodyText
+        val event_url: TextView = binding.eventUrl
 
             val netDate = Date(dates.end.toLong() * 1000)
             date = sdf.format(netDate)
@@ -139,6 +140,7 @@ class EventDetailsFragment : Fragment() {
         val image_url = images.image
         event_title.text = events.title.capitalize()
         event_age.text = events.ageRestriction
+        event_url.text = events.site_url
         val eventurl = events.location.toString().removeRange(0,16)
         event_location.text =  eventurl.subSequence(0, eventurl.indexOf(','))
         event_description.text = events.bodyText.replace("\\<.*?\\>".toRegex(), "")

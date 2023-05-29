@@ -2,8 +2,10 @@ package com.example.musicandfilm.ui.news
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +29,8 @@ class NewsFragment() : Fragment() {
     val displayList = ArrayList<Items>()
     var testing: String = ""
     lateinit var rv_news_list: RecyclerView
+    private var progressBar: ProgressBar? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,6 +44,7 @@ class NewsFragment() : Fragment() {
     }
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        progressBar = binding.progressBar
         rv_news_list= binding.rvNewsList
 
         putNewsInRv ()
@@ -49,6 +54,7 @@ class NewsFragment() : Fragment() {
 
 
 private fun putNewsInRv(){
+    progressBar!!.visibility = View.VISIBLE
         val viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         viewModel.getLiveDataObserver().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             rv_news_list.layoutManager = LinearLayoutManager(activity)
@@ -62,7 +68,8 @@ private fun putNewsInRv(){
             rv_news_list.adapter = adapter
         })
         viewModel.getAllNews()
-    }
+    if (rv_news_list.isNotEmpty()) {  progressBar!!.visibility = View.INVISIBLE }
+}
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -79,12 +86,17 @@ private fun putNewsInRv(){
                     val search = newText.toLowerCase(Locale.getDefault())
                     arrayList.forEach {
                         if (it.text.toLowerCase(Locale.getDefault()).contains(search)) {
+                            progressBar!!.visibility = View.INVISIBLE
                             displayList.add(it)
                         }
                     }
                     rv_news_list.adapter!!.notifyDataSetChanged()
                 } else {
-                    putNewsInRv()
+                    displayList.clear()
+                    displayList.addAll(arrayList)
+                    if (rv_news_list.isNotEmpty()) {
+                        rv_news_list.adapter!!.notifyDataSetChanged()
+                    }
                 }
                 return true
             }

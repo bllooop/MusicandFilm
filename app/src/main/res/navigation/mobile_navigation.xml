@@ -17,7 +17,17 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.musicandfilm.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+    <action
+        android:id="@+id/action_navigation_profile_to_navigation_news_details"
+        app:destination="@id/navigation_details_news" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_event_details"
+            app:destination="@id/navigation_details_event" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_movies_details"
+            app:destination="@id/navigation_details" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.example.musicandfilm.ui.favorite.FavoriteFragment"

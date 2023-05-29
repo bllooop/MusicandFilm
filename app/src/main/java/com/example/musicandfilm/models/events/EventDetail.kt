@@ -17,6 +17,8 @@ data class EventDetail (
     val location: @RawValue Any?,
     @SerializedName("age_restriction" )
     val ageRestriction : String,
+    @SerializedName("site_url")
+    val site_url: String,
     @SerializedName("images")
     val images  :ArrayList<Images>
 )

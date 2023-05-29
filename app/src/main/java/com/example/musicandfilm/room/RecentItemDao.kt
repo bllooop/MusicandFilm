@@ -16,11 +16,9 @@ interface RecentItemDao {
 
     @Query("DELETE FROM recent_item_table where id NOT IN (SELECT id from recent_item_table ORDER BY id DESC LIMIT 3)")
     suspend fun deleteRecentItem()
-
+}
    // @Query("SELECT * FROM event_table")
     //fun allEvents(): List<Event>
 
     //@Insert(onConflict = OnConflictStrategy.REPLACE)
-   // suspend fun insertEvents(eventRoom: List<Event>)
-
-}
+   // suspend fun insertEvents(eventRoom: List<Event>) }

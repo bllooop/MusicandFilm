@@ -12,7 +12,7 @@ interface EventApiInterface {
     @Headers("cookes: erhfuiwhgfiuwerhiw4ueghfwoqghuyq4go7w4gfuier")
     @GET("events/?fields=id,title,images,dates&categories=cinema,concert")
     fun getEventList(@Query("actual_since") time: String): Call<EventResponse>
-    @GET ("events/{id}/?lang=&fields=id,dates,title,images,body_text,location,age_restriction&expand=location")
+    @GET ("events/{id}/?lang=&fields=id,dates,title,images,body_text,location,age_restriction,site_url&expand=location")
     fun getEventDetail(@Path("id") event_id: Int): Call<EventDetail>
 
 }

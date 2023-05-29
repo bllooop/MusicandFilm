@@ -30,7 +30,7 @@ RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
             comment_name.text = comments.email
             comment_text.text = comments.text
             comment_date.text = comments.date
-            if (comments.type == "movie") {
+            if (comments.type == "Movies") {
                 comment_text.text = comments.stars + "/5 \n" + comments.text
             }
             firebaseAuth = FirebaseAuth.getInstance()
@@ -41,7 +41,7 @@ RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
             }
 
             deleteComment.setOnClickListener {
-                val comment = database.getReference("Comments/News")
+                val comment = database.getReference("Comments/" + comments.type)
                 comment.child(comments.userid).removeValue()
                 Toast.makeText(context,"Комментарий удален", Toast.LENGTH_SHORT).show()
             }

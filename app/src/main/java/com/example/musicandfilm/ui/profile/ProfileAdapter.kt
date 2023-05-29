@@ -39,21 +39,21 @@ class ProfileAdapter (
                 bundle.putString("id", recents.id.toString())
                 itemView.setOnClickListener {
                     itemView.findNavController()
-                        .navigate(R.id.action_navigation_news_to_navigation_news_details, bundle)
+                        .navigate(R.id.action_navigation_profile_to_navigation_news_details, bundle)
                 }
             }
             if (recents.type == "events") {
                 bundle.putString("id", recents.id.toString())
                 itemView.setOnClickListener {
                     itemView.findNavController()
-                        .navigate(R.id.action_navigation_event_to_navigation_event_details, bundle)
+                        .navigate(R.id.action_navigation_profile_to_navigation_event_details, bundle)
                 }
             }
             if (recents.type == "movies") {
                 bundle.putString("id", recents.id.toString())
                 itemView.setOnClickListener {
                     itemView.findNavController()
-                        .navigate(R.id.action_navigation_main_to_navigation_details, bundle)
+                        .navigate(R.id.action_navigation_profile_to_navigation_movies_details, bundle)
                 }
             }
         }

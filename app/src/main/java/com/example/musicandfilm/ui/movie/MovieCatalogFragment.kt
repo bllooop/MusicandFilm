@@ -2,6 +2,7 @@ package com.example.musicandfilm.ui.movie
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ class MovieCatalogFragment() : Fragment() {
     val arrayList = ArrayList<Movie>()
     val displayList = ArrayList<Movie>()
     val appContext = context
+    private var progressBar: ProgressBar? = null
     lateinit var rv_movies_list: RecyclerView
     //  private var layoutManager: RecyclerView.LayoutManager? = null
 
@@ -41,12 +43,14 @@ class MovieCatalogFragment() : Fragment() {
 
    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
        super.onViewCreated(itemView, savedInstanceState)
+       progressBar = binding.progressBar
        rv_movies_list = binding.rvMoviesList
         putMoviesInRv()
        refreshApp()
    }
 
     private fun putMoviesInRv(){
+       progressBar!!.visibility = View.VISIBLE
         val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         val viewModel1 = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel1.initDatabase()
@@ -61,6 +65,7 @@ class MovieCatalogFragment() : Fragment() {
             rv_movies_list.adapter = adapter
         })
         viewModel.getAllMovies()
+        if (rv_movies_list.isNotEmpty()) {  progressBar!!.visibility = View.INVISIBLE }
     }
     override fun onDestroyView() {
         super.onDestroyView()
@@ -84,8 +89,8 @@ class MovieCatalogFragment() : Fragment() {
                        val search = newText.toLowerCase(Locale.getDefault())
                        arrayList.forEach {
                            if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
+                               progressBar!!.visibility = View.INVISIBLE
                                displayList.add(it)
-                               //  Log.d("MyLog", "test " + it.toString())
                            }
                        }
                        rv_movies_list.adapter!!.notifyDataSetChanged()
