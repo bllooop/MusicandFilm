@@ -40,6 +40,9 @@ class RecoverPasswordFragment(): Fragment() {
         super.onViewCreated(itemView, savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
         checkUser()
+        binding.logText.setOnClickListener {
+            binding.logText.findNavController().navigate(R.id.action_navigation_recover_to_navigation_login)
+        }
         binding.regText.setOnClickListener {
             binding.regText.findNavController().navigate(R.id.action_navigation_recover_to_navigation_register)
         }

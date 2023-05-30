@@ -54,13 +54,13 @@
         android:id="@+id/fav"
         android:layout_width="39dp"
         android:layout_height="40dp"
-        android:layout_marginStart="108dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
         android:background="#00FFFFFF"
         android:minWidth="48dp"
         android:tag="fav"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/movie_release_date"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

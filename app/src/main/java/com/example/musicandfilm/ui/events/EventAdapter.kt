@@ -56,10 +56,11 @@ class EventAdapter(
                 date = "До " + sdf.format(netDate)
                 event_date.text = date
             Glide.with(itemView).load(image_url).into(event_poster)
+            val unixTime = System.currentTimeMillis() / 1000
             bundle.putString("id", event.id)
             favorite.setOnClickListener {
-                val mEvent = FavoriteEvent(userid,event.id,event.title,image_url,date)
-                favEvent.child(event.id).setValue(mEvent)
+                val mEvent = FavoriteEvent(userid,event.id,event.title,image_url,date, unixTime.toString())
+                favEvent.child(unixTime.toString()).setValue(mEvent)
                 Toast.makeText(context,"Мероприятие добавлено в избранное", Toast.LENGTH_SHORT).show()
             }
             itemView.setOnClickListener {

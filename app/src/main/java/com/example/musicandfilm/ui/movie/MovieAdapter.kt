@@ -34,14 +34,15 @@ class MovieAdapter(
             movie_title.text = movie.title
             movie_release_date.text = movie.release
             Glide.with(itemView).load(IMAGE_BASE + movie.poster).into(movie_poster)
+            val unixTime = System.currentTimeMillis() / 1000
             bundle.putString("id", movie.id)
             itemView.setOnClickListener {
                 itemView.findNavController()
                     .navigate(R.id.action_navigation_main_to_navigation_details, bundle)
             }
             favorite.setOnClickListener {
-            val mMovie = FavoriteMovie(userid,movie.id,movie.title,movie.poster,movie.release)
-             favMovie.child(movie.id).setValue(mMovie)
+            val mMovie = FavoriteMovie(userid,movie.id,movie.title,movie.poster,movie.release, unixTime.toString())
+             favMovie.child(unixTime.toString()).setValue(mMovie)
                 Toast.makeText(context,"Фильм добавлен в избранное", Toast.LENGTH_SHORT).show()
             }
         }

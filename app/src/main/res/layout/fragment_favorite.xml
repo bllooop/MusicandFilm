@@ -29,15 +29,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Избранное"
-                android:textColor="@color/white"
-                android:textSize="34sp" />
-
-            <TextView
                 android:id="@+id/movie_field_name"
                 android:text="Фильмы"
                 android:layout_width="match_parent"
@@ -57,10 +48,11 @@
                 android:text="Список пуст"
                 android:textColor="@color/grey"
                 android:textSize="20sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_movies_list"
                 android:layout_width="match_parent"
-                android:layout_height="206dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
 

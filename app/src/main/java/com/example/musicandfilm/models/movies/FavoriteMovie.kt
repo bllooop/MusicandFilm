@@ -10,5 +10,7 @@ data class FavoriteMovie(
     var id_movie: String = "",
     var title: String= "",
     var poster_path: String = "",
-    var release_date: String= ""
-    )
+    var release_date: String= "",
+    val unix: String = ""
+
+)

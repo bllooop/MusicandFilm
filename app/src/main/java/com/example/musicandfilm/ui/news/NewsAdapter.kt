@@ -45,7 +45,7 @@ class NewsAdapter (  private val news: List<Items>
             val news_date = itemView.findViewById<TextView>(R.id.news_date)
             var date = ""
             var image_link = ""
-            if(items.text.isNotEmpty()) { news_title.text = items.text!!.subSequence(0,10).toString() + "..."}
+            if(items.text.isNotEmpty()) { news_title.text = items.text!!.subSequence(0,20).toString() + "..."}
             val newdate = items.date
             val netDate = Date(newdate!!.toLong() * 1000)
             date = sdf.format(netDate).toString()
@@ -68,10 +68,11 @@ class NewsAdapter (  private val news: List<Items>
                 Glide.with(itemView).load(image_link).into(news_image)
             }
             val postid = items.ownerId.toString() + "_" + items.id.toString()
-             bundle.putString("id", postid)
+            val unixTime = System.currentTimeMillis() / 1000
+            bundle.putString("id", postid)
             favorite.setOnClickListener {
-              val mNews = FavoriteNews(userid,date,postid, items.text!!,image_link )
-               favNews.child(postid).setValue(mNews)
+              val mNews = FavoriteNews(userid,date,postid, items.text!!,image_link,unixTime.toString() )
+               favNews.child(unixTime.toString()).setValue(mNews)
                 Toast.makeText(context,"Новость добавлена в избранное", Toast.LENGTH_SHORT).show()
 
             }

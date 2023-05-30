@@ -7,7 +7,6 @@ data class FavoriteNews (
     var date: String = "",
     var id: String = "",
     var text: String = "",
-    var image:String = ""
-){
-
-}
+    var image:String = "",
+    val unix: String = ""
+)

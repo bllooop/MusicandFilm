@@ -37,7 +37,7 @@ class FavoriteNewsAdapter(private val news : List<FavoriteNews>):
                     .navigate(R.id.action_navigation_favorite_to_navigation_news_details, bundle)
             }
             favorite.setOnClickListener {
-                favNews.child(favoriteNews.id).removeValue()
+                favNews.child(favoriteNews.unix).removeValue()
                 Toast.makeText(context,"Новость удалена из избранного", Toast.LENGTH_SHORT).show()
             }
         }

@@ -7,5 +7,6 @@ data class Comments  (
     val stars: String = "",
     val type: String = "",
     var text: String= "",
-    val date: String = ""
+    val date: String = "",
+    val unix: String = ""
 )

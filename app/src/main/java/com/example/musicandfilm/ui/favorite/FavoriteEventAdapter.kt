@@ -31,14 +31,14 @@ class FavoriteEventAdapter(private val events : List<FavoriteEvent>):
             val event_image = itemView.findViewById<ImageView>(R.id.event_poster)
             event_title.text = favoriteEvent.title.capitalize()
             event_date.text = favoriteEvent.date
-            Glide.with(itemView).load(IMAGE_BASE + favoriteEvent.image ).into(event_image)
+            Glide.with(itemView).load(favoriteEvent.image ).into(event_image)
             bundle.putString("id", favoriteEvent.id)
             itemView.setOnClickListener {
                 itemView.findNavController()
                     .navigate(R.id.action_navigation_favorite_to_navigation_event_details, bundle)
             }
             favorite.setOnClickListener {
-                favEvent.child(favoriteEvent.id).removeValue()
+                favEvent.child(favoriteEvent.unix).removeValue()
                 Toast.makeText(context,"Мероприятие удалено из избранного", Toast.LENGTH_SHORT).show()
             }
         }

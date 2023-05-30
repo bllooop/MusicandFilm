@@ -28,16 +28,6 @@
             android:orientation="vertical"
             android:layout_marginTop="6dp">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:text="Мероприятия"
-                android:textColor="@color/white"
-                android:textSize="34sp" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_events_list"
                 android:layout_width="match_parent"

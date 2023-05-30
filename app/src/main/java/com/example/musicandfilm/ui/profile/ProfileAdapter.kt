@@ -29,33 +29,45 @@ class ProfileAdapter (
         val bundle = Bundle()
 
         fun bindRecents(recents: RecentHistory, context: Context) {
-            val title = itemView.findViewById<TextView>(R.id.title)
-            val poster = itemView.findViewById<ImageView>(R.id.poster)
-            val date = itemView.findViewById<TextView>(R.id.date)
-            title.text = recents.title.subSequence(0, 6).toString() + "..."
-            Glide.with(itemView).load(recents.image).into(poster)
-            date.text = recents.date
-            if (recents.type == "news") {
-                bundle.putString("id", recents.id.toString())
-                itemView.setOnClickListener {
-                    itemView.findNavController()
-                        .navigate(R.id.action_navigation_profile_to_navigation_news_details, bundle)
+            var user = FirebaseAuth.getInstance().currentUser
+                val title = itemView.findViewById<TextView>(R.id.title)
+                val poster = itemView.findViewById<ImageView>(R.id.poster)
+                val date = itemView.findViewById<TextView>(R.id.date)
+                Glide.with(itemView).load(recents.image).into(poster)
+                date.text = recents.date
+                if (recents.type == "news") {
+                    title.text = recents.title.subSequence(0, 15).toString() + "..."
+                    bundle.putString("id", recents.type_id)
+                    itemView.setOnClickListener {
+                        itemView.findNavController()
+                            .navigate(
+                                R.id.action_navigation_profile_to_navigation_news_details,
+                                bundle
+                            )
+                    }
                 }
-            }
-            if (recents.type == "events") {
-                bundle.putString("id", recents.id.toString())
-                itemView.setOnClickListener {
-                    itemView.findNavController()
-                        .navigate(R.id.action_navigation_profile_to_navigation_event_details, bundle)
+                if (recents.type == "events") {
+                    title.text = recents.title.subSequence(0, 15).toString() + "..."
+                    bundle.putString("id", recents.type_id)
+                    itemView.setOnClickListener {
+                        itemView.findNavController()
+                            .navigate(
+                                R.id.action_navigation_profile_to_navigation_event_details,
+                                bundle
+                            )
+                    }
                 }
-            }
-            if (recents.type == "movies") {
-                bundle.putString("id", recents.id.toString())
-                itemView.setOnClickListener {
-                    itemView.findNavController()
-                        .navigate(R.id.action_navigation_profile_to_navigation_movies_details, bundle)
+                if (recents.type == "movies") {
+                    title.text = recents.title
+                    bundle.putString("id", recents.type_id)
+                    itemView.setOnClickListener {
+                        itemView.findNavController()
+                            .navigate(
+                                R.id.action_navigation_profile_to_navigation_movies_details,
+                                bundle
+                            )
+                    }
                 }
-            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {

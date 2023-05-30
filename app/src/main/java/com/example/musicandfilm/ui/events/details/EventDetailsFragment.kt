@@ -42,6 +42,7 @@ class EventDetailsFragment : Fragment() {
     val comments = database.getReference("Comments/Events")
     private val images = ArrayList<Images>()
     private val dates = ArrayList<Dates>()
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -87,12 +88,11 @@ class EventDetailsFragment : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-       // val unixTime = System.currentTimeMillis() / 1000;
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val current = LocalDateTime.now().format(formatter)
-        val comment_date = sdf.format(current)
-        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, "0", "Events", comment,comment_date)
-        comments.child(userid).setValue(mComment)
+        val unixTime = System.currentTimeMillis() / 1000
+        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, "0", "Events", comment,current.toString(), unixTime.toString())
+        comments.child(unixTime.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
 
@@ -122,6 +122,8 @@ class EventDetailsFragment : Fragment() {
         })
     }
     fun bindEvent(events: EventDetail){
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser
         images.addAll(events.images)
         dates.addAll(events.dates)
         val images: Images = images.get(0)
@@ -146,7 +148,7 @@ class EventDetailsFragment : Fragment() {
         event_description.text = events.bodyText.replace("\\<.*?\\>".toRegex(), "")
         Glide.with(this).load(image_url).into(event_poster)
         val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)
-        viewModel.insert(RecentHistory(title = events.title,date = date, type_id = events.id.toString(), image = image_url, type = "events", userid = "1"))
+        viewModel.insert(RecentHistory(title = events.title,date = date, type_id = events.id.toString(), image = image_url, type = "events", userid = firebaseUser!!.email.toString()))
     }
 
     private fun refreshApp(id: Int){

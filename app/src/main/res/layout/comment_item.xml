@@ -57,9 +57,10 @@
         android:id="@+id/deleteComment"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginBottom="4dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
         android:background="#00FFFFFF"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/baseline_delete_24" />

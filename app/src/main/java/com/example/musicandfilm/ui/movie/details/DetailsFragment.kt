@@ -44,6 +44,7 @@ class DetailsFragment : Fragment() {
     val comments = database.getReference("Comments/Movies")
     private lateinit var viewModel: DetailsViewModel
     lateinit  var ratingBar: RatingBar
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -80,12 +81,11 @@ class DetailsFragment : Fragment() {
         var userid = user!!.uid
         comment = binding.commentText.text.toString().trim()
         val email = firebaseAuth.currentUser!!.email.toString()
-       // val unixTime = System.currentTimeMillis() / 1000;
+        val unixTime = System.currentTimeMillis() / 1000;
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val current = LocalDateTime.now().format(formatter)
-        val comment_date = sdf.format(current)
-        val mComment = com.example.musicandfilm.models.Comments(userid,id.toString(),email, ratingBar.rating.toString(), "Movies", comment,comment_date)
-        comments.child(id.toString()).setValue(mComment)
+        val mComment = Comments(userid,id.toString(),email, ratingBar.rating.toString(), "Movies", comment,current.toString(), unixTime.toString())
+        comments.child(unixTime.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
 
@@ -115,6 +115,8 @@ class DetailsFragment : Fragment() {
         })
     }
     fun bindMovie(movies: MovieDetails){
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser
         val movie_title: TextView = binding.movieTitle
         val movie_runtime: TextView = binding.movieRuntime
         val movie_status: TextView = binding.movieStatus
@@ -131,7 +133,7 @@ class DetailsFragment : Fragment() {
         Glide.with(this).load(IMAGE_BASE + movies.posterPath).into(movie_poster)
         val image_link = IMAGE_BASE + movies.posterPath
         val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)
-        viewModel.insert(RecentHistory(title = movies.title,date = movies.releaseDate, type_id = movies.id.toString(), image = image_link, type = "movies", userid = "1"))
+        viewModel.insert(RecentHistory(title = movies.title,date = movies.releaseDate, type_id = movies.id.toString(), image = image_link, type = "movies", userid = firebaseUser!!.email.toString()))
     }
 
     private fun refreshApp(id: Int){

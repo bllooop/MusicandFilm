@@ -86,10 +86,9 @@ class NewsDetailsFragment () : Fragment() {
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val current = LocalDateTime.now().format(formatter)
         val email = firebaseAuth.currentUser!!.email.toString()
-        //val unixTime = System.currentTimeMillis() / 1000;
-        val comment_date = sdf.format(current)
-        val mComment = Comments(userid,id.toString(),email, "0","News",comment,comment_date)
-        comments.child(userid).setValue(mComment)
+        val unixTime = System.currentTimeMillis() / 1000;
+        val mComment = Comments(userid,id.toString(),email, "0","News",comment,current.toString())
+        comments.child(unixTime.toString()).setValue(mComment)
         Toast.makeText(context,"Комментарий опубликован", Toast.LENGTH_SHORT).show()
     }
 
@@ -127,6 +126,8 @@ class NewsDetailsFragment () : Fragment() {
     }
 
     fun bindNews(items: Items){
+        firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseUser = firebaseAuth.currentUser
         val news_date: TextView = binding.newsDate
         val news_image: ImageView = binding.newsImage
         val news_text: TextView = binding.newsText
@@ -155,6 +156,6 @@ class NewsDetailsFragment () : Fragment() {
         Glide.with(this).load(image_link).into(news_image)
 
         val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)
-        viewModel.insert(RecentHistory(title = items.text.toString(),date = date, type_id = items.id.toString(), image = image_link, type = "news", userid = "1"))
+        viewModel.insert(RecentHistory(title = items.text.toString(),date = date, type_id = items.id.toString(), image = image_link, type = "news", userid = firebaseUser!!.email.toString()))
     }
 }

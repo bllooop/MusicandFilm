@@ -36,13 +36,12 @@ RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
             firebaseAuth = FirebaseAuth.getInstance()
             val firebaseUser = firebaseAuth.currentUser
             var userid = firebaseUser!!.uid
-            if (comments.userid!=userid) {
-                deleteComment.isVisible = false
+            if (comments.userid==userid || firebaseUser.email == "moderator@mail.ru") {
+                deleteComment.isVisible = true
             }
-
             deleteComment.setOnClickListener {
                 val comment = database.getReference("Comments/" + comments.type)
-                comment.child(comments.userid).removeValue()
+                comment.child(comments.unix).removeValue()
                 Toast.makeText(context,"Комментарий удален", Toast.LENGTH_SHORT).show()
             }
         }

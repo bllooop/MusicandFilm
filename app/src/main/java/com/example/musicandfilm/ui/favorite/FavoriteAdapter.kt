@@ -37,7 +37,7 @@ class FavoriteAdapter( private val movies : List<FavoriteMovie>):
                     .navigate(R.id.action_navigation_favorite_to_navigation_details, bundle)
             }
             favorite.setOnClickListener {
-                favMovie.child(favoriteMovie.id_movie).removeValue()
+                favMovie.child(favoriteMovie.unix).removeValue()
                 Toast.makeText(context,"Фильм удален из избранного", Toast.LENGTH_SHORT).show()
             }
         }

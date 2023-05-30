@@ -29,6 +29,7 @@ class ProfileFragment : Fragment() {
     private lateinit var firebaseAuth : FirebaseAuth
     private var email = ""
     private var password = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
