@@ -47,7 +47,7 @@ class ProfileAdapter (
                     }
                 }
                 if (recents.type == "events") {
-                    title.text = recents.title.subSequence(0, 15).toString() + "..."
+                    title.text = recents.title.subSequence(0, 15).toString().capitalize() + "..."
                     bundle.putString("id", recents.type_id)
                     itemView.setOnClickListener {
                         itemView.findNavController()

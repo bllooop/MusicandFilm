@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener
 class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-    private lateinit var mFavoriteViewModel: FavoriteViewModel
     private lateinit var movieArrayList:ArrayList<FavoriteMovie>
     private lateinit var eventArrayList:ArrayList<FavoriteEvent>
     private lateinit var newsArrayList:ArrayList<FavoriteNews>

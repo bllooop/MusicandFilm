@@ -154,8 +154,8 @@ class NewsDetailsFragment () : Fragment() {
         val date = sdf.format(netDate).toString()
         news_date.text =  sdf.format(netDate).toString()
         Glide.with(this).load(image_link).into(news_image)
-
+        val id_news = "-108468_" + items.id.toString()
         val viewModel = ViewModelProvider(this).get(InsertingRoomViewModel::class.java)
-        viewModel.insert(RecentHistory(title = items.text.toString(),date = date, type_id = items.id.toString(), image = image_link, type = "news", userid = firebaseUser!!.email.toString()))
+        viewModel.insert(RecentHistory(title = items.text.toString(),date = date, type_id = id_news, image = image_link, type = "news", userid = firebaseUser!!.email.toString()))
     }
 }

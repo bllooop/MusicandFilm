@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movie Catalog</string>
+    <string name="app_name">Мир кино и музыки</string>
     <string name="title_home">Фильмы</string>
     <string name="title_profile">Профиль</string>
     <string name="title_favorite">Избранное</string>
