@@ -9,9 +9,9 @@ import retrofit2.http.Query
 
 interface MovieApiInterface {
 
-    @GET("/3/movie/popular?api_key=9ef9480bcac9a39f085f399caca8e2fb&language=ru-RU")
+    @GET("/3/movie/popular?api_key=/=ru-RU")
     fun getMovieList(): Call<MovieResponse>
-    @GET("/3/movie/{id}?api_key=9ef9480bcac9a39f085f399caca8e2fb&language=ru-RU")
+    @GET("/3/movie/{id}?api_key=/=ru-RU")
     fun getMovieDetails(@Path("id") movie_id: Int): Call<MovieDetails>
 
     @GET("/3/movie/")
